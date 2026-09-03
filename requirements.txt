@@ -1,0 +1,15 @@
+streamlit
+langchain
+langchain-community
+langchain-huggingface
+chromadb
+faiss-cpu
+sentence-transformers
+transformers
+accelerate
+bitsandbytes
+pypdf
+unstructured
+torch
+numpy
+pandas
