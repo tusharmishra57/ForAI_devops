@@ -1,0 +1,12 @@
+.git
+.gitignore
+__pycache__/
+*.py[cod]
+*.ipynb
+.venv/
+venv/
+env/
+.env
+.streamlit/secrets.toml
+*.pdf
+*.txt~
