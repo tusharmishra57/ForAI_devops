@@ -5,7 +5,7 @@ import torch
 from rag_logic import (
     DocumentProcessor, TextChunker, EmbeddingManager, 
     ChromaVectorStore, FAISSVectorStore, SemanticSearcher, 
-    LLMManager, RAGPipeline, DEVICE
+    LLMManager, RAGPipeline, ModelCoordinator, DEVICE
 )
 
 st.set_page_config(page_title="Research Paper Assistant", layout="wide")
@@ -13,11 +13,12 @@ st.set_page_config(page_title="Research Paper Assistant", layout="wide")
 st.title("📚 Research Paper Assistant (RAG)")
 st.markdown("Upload research papers and ask questions about them.")
 
-# Cache managers
+# Cache managers — a single ModelCoordinator ensures only 1 model in memory at a time
 @st.cache_resource
 def get_managers():
-    emb_manager = EmbeddingManager()
-    llm_manager = LLMManager()
+    coordinator = ModelCoordinator()
+    emb_manager = EmbeddingManager(coordinator=coordinator)
+    llm_manager = LLMManager(coordinator=coordinator)
     chroma_store = ChromaVectorStore()
     faiss_store = FAISSVectorStore()
     return emb_manager, llm_manager, chroma_store, faiss_store

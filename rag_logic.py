@@ -15,8 +15,41 @@ import chromadb
 import faiss
 from transformers import AutoTokenizer, AutoModelForCausalLM, pipeline, BitsAndBytesConfig
 
+import gc
+
 # Device setting
 DEVICE = "cuda" if torch.cuda.is_available() else "cpu"
+
+
+class ModelCoordinator:
+    """Global coordinator ensuring only ONE model is in memory at any time.
+
+    Every model manager (EmbeddingManager, LLMManager) registers itself here.
+    Before loading a model, a manager calls `coordinator.request_load(self)` which
+    unloads every *other* registered manager first.
+    """
+
+    def __init__(self):
+        self._managers: List = []  # list of registered managers
+
+    def register(self, manager):
+        """Register a manager so the coordinator can unload it when needed."""
+        if manager not in self._managers:
+            self._managers.append(manager)
+
+    def request_load(self, requester):
+        """Called by a manager right before it loads a model.
+
+        Unloads every other manager so that only the requester's model will
+        be resident in memory.
+        """
+        for mgr in self._managers:
+            if mgr is not requester:
+                mgr._unload_current()
+        # Run GC + clear GPU cache once after all evictions
+        gc.collect()
+        if torch.cuda.is_available():
+            torch.cuda.empty_cache()
 
 class DocumentProcessor:
     """Handles loading and preprocessing of research documents."""
@@ -89,21 +122,39 @@ class TextChunker:
         return chunks
 
 class EmbeddingManager:
-    """Manages multiple embedding models."""
+    """Manages embedding models — only ONE model across the entire app at a time."""
     MODELS = {
         "minilm":   "sentence-transformers/all-MiniLM-L6-v2",
         "mpnet":    "sentence-transformers/all-mpnet-base-v2",
         "bge":      "BAAI/bge-small-en-v1.5",
     }
-    def __init__(self):
-        self.loaded_models: Dict[str, SentenceTransformer] = {}
+    def __init__(self, coordinator: Optional[ModelCoordinator] = None):
+        self._current_name: Optional[str] = None
+        self._current_model: Optional[SentenceTransformer] = None
+        self._coordinator = coordinator
+        if coordinator is not None:
+            coordinator.register(self)
+
+    def _unload_current(self):
+        """Free the currently loaded embedding model from memory."""
+        if self._current_model is not None:
+            del self._current_model
+            self._current_model = None
+            self._current_name = None
 
     def load_model(self, name: str) -> SentenceTransformer:
-        if name not in self.loaded_models:
-            model_id = self.MODELS[name]
-            model = SentenceTransformer(model_id, device=DEVICE)
-            self.loaded_models[name] = model
-        return self.loaded_models[name]
+        if self._current_name == name and self._current_model is not None:
+            return self._current_model
+        # Ask coordinator to unload ALL other managers first
+        if self._coordinator is not None:
+            self._coordinator.request_load(self)
+        # Also unload our own previous model
+        self._unload_current()
+        model_id = self.MODELS[name]
+        model = SentenceTransformer(model_id, device=DEVICE)
+        self._current_name = name
+        self._current_model = model
+        return model
 
     def embed_texts(self, name: str, texts: List[str]) -> np.ndarray:
         model = self.load_model(name)
@@ -217,16 +268,39 @@ class SemanticSearcher:
         return [doc_map[doc_id] for doc_id, _ in ranked]
 
 class LLMManager:
+    """Manages LLM pipelines — only ONE model across the entire app at a time."""
     MODELS = {
         "qwen":      "Qwen/Qwen2.5-1.5B-Instruct",
         "tinyllama": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
         "phi":       "microsoft/phi-2",
     }
-    def __init__(self):
-        self.pipelines: Dict[str, pipeline] = {}
+    def __init__(self, coordinator: Optional[ModelCoordinator] = None):
+        self._current_name: Optional[str] = None
+        self._current_pipe = None
+        self._coordinator = coordinator
+        if coordinator is not None:
+            coordinator.register(self)
+
+    def _unload_current(self):
+        """Free the currently loaded LLM pipeline from memory."""
+        if self._current_pipe is not None:
+            # Explicitly delete model & tokenizer held by the pipeline
+            if hasattr(self._current_pipe, 'model'):
+                del self._current_pipe.model
+            if hasattr(self._current_pipe, 'tokenizer'):
+                del self._current_pipe.tokenizer
+            del self._current_pipe
+            self._current_pipe = None
+            self._current_name = None
 
     def load_model(self, name: str):
-        if name in self.pipelines: return
+        if self._current_name == name and self._current_pipe is not None:
+            return
+        # Ask coordinator to unload ALL other managers first
+        if self._coordinator is not None:
+            self._coordinator.request_load(self)
+        # Also unload our own previous model
+        self._unload_current()
         model_id = self.MODELS[name]
         quant_config = BitsAndBytesConfig(
             load_in_4bit=True,
@@ -253,12 +327,13 @@ class LLMManager:
             do_sample=True,
             repetition_penalty=1.2,
         )
-        self.pipelines[name] = pipe
+        self._current_name = name
+        self._current_pipe = pipe
 
     def generate(self, name: str, prompt: str) -> str:
-        if name not in self.pipelines:
+        if self._current_name != name or self._current_pipe is None:
             self.load_model(name)
-        pipe = self.pipelines[name]
+        pipe = self._current_pipe
         output = pipe(prompt, return_full_text=False)
         return output[0]["generated_text"].strip()
 

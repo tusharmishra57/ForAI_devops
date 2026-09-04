@@ -16,7 +16,7 @@ RUN useradd --create-home --shell /usr/sbin/nologin app
 COPY requirements.txt .
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt
-
+ 
 COPY app.py rag_logic.py ./
 
 RUN mkdir -p /home/app/.cache/huggingface /home/app/.streamlit \
