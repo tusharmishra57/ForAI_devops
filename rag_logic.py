@@ -270,9 +270,10 @@ class SemanticSearcher:
 class LLMManager:
     """Manages LLM pipelines — only ONE model across the entire app at a time."""
     MODELS = {
-        "qwen":      "Qwen/Qwen2.5-1.5B-Instruct",
-        "tinyllama": "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
-        "phi":       "microsoft/phi-2",
+        "qwen-0.5b":   "Qwen/Qwen2.5-0.5B-Instruct",
+        "smollm-360m": "HuggingFaceTB/SmolLM2-360M-Instruct",
+        "tinyllama":   "TinyLlama/TinyLlama-1.1B-Chat-v1.0",
+        "qwen-1.5b":   "Qwen/Qwen2.5-1.5B-Instruct",
     }
     def __init__(self, coordinator: Optional[ModelCoordinator] = None):
         self._current_name: Optional[str] = None
@@ -294,6 +295,8 @@ class LLMManager:
             self._current_name = None
 
     def load_model(self, name: str):
+        if name not in self.MODELS:
+            name = "qwen-0.5b"
         if self._current_name == name and self._current_pipe is not None:
             return
         # Ask coordinator to unload ALL other managers first
@@ -302,20 +305,29 @@ class LLMManager:
         # Also unload our own previous model
         self._unload_current()
         model_id = self.MODELS[name]
-        quant_config = BitsAndBytesConfig(
-            load_in_4bit=True,
-            bnb_4bit_compute_dtype=torch.float16,
-            bnb_4bit_quant_type="nf4",
-            bnb_4bit_use_double_quant=True,
-        )
+
         tokenizer = AutoTokenizer.from_pretrained(model_id)
         if tokenizer.pad_token is None:
             tokenizer.pad_token = tokenizer.eos_token
+
+        model_kwargs = {"low_cpu_mem_usage": True}
+        if torch.cuda.is_available():
+            quant_config = BitsAndBytesConfig(
+                load_in_4bit=True,
+                bnb_4bit_compute_dtype=torch.float16,
+                bnb_4bit_quant_type="nf4",
+                bnb_4bit_use_double_quant=True,
+            )
+            model_kwargs["quantization_config"] = quant_config
+            model_kwargs["device_map"] = "auto"
+            model_kwargs["torch_dtype"] = torch.float16
+        else:
+            model_kwargs["torch_dtype"] = torch.float32
+            model_kwargs["device_map"] = "cpu"
+
         model = AutoModelForCausalLM.from_pretrained(
             model_id,
-            quantization_config=quant_config,
-            device_map="auto",
-            torch_dtype=torch.float16,
+            **model_kwargs,
         )
         pipe = pipeline(
             "text-generation",
@@ -331,6 +343,8 @@ class LLMManager:
         self._current_pipe = pipe
 
     def generate(self, name: str, prompt: str) -> str:
+        if name not in self.MODELS:
+            name = "qwen-0.5b"
         if self._current_name != name or self._current_pipe is None:
             self.load_model(name)
         pipe = self._current_pipe
@@ -365,7 +379,7 @@ class RAGPipeline:
             if total_chars >= max_chars: break
         return "\n\n".join(context_parts)
 
-    def answer(self, question: str, emb_model: str = "minilm", llm_name: str = "qwen", store: str = "chroma", top_k: int = 5, use_rrf: bool = False) -> Dict:
+    def answer(self, question: str, emb_model: str = "minilm", llm_name: str = "qwen-0.5b", store: str = "chroma", top_k: int = 5, use_rrf: bool = False) -> Dict:
         t0 = time.time()
         if use_rrf:
             retrieved = self.searcher.reciprocal_rank_fusion(question, emb_model, top_k)
