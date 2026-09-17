@@ -1,0 +1,248 @@
+[
+  {
+    "id": "Q01",
+    "category": "Paper Q&A",
+    "question": "Explain the Transformer architecture and how self-attention eliminates the need for recurrence.",
+    "ground_truth": "The Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependencies between tokens to be computed in parallel across all positions, solving the sequential computation bottleneck and vanishing gradients of RNNs.",
+    "expected_sources": [
+      "transformer_paper.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q02",
+    "category": "Paper Q&A",
+    "question": "Why does scaled dot-product attention divide by the square root of d_k?",
+    "ground_truth": "Scaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would otherwise push the softmax function into regions with extremely small gradients.",
+    "expected_sources": [
+      "transformer_paper.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q03",
+    "category": "Paper Q&A",
+    "question": "How does BERT pre-train using Masked Language Modeling (MLM) and Next Sentence Prediction (NSP)?",
+    "ground_truth": "BERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predicts them using bidirectional context. NSP trains the model to predict whether sentence B logically follows sentence A (IsNext vs NotNext).",
+    "expected_sources": [
+      "bert_paper.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q04",
+    "category": "Paper Q&A",
+    "question": "What is Retrieval-Augmented Generation (RAG) and how does it combine parametric and non-parametric memory?",
+    "ground_truth": "RAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametric memory (a dense vector index of passages retrieved via DPR), reducing hallucinations and enabling knowledge updates without retraining.",
+    "expected_sources": [
+      "rag_paper.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q05",
+    "category": "Paper Q&A",
+    "question": "What is LoRA and how does low-rank matrix decomposition reduce trainable parameters?",
+    "ground_truth": "LoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W = B * A with rank r << min(d, k), reducing trainable parameters by up to 10,000x with zero added inference latency.",
+    "expected_sources": [
+      "lora_paper.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q06",
+    "category": "Paper Q&A",
+    "question": "What are the main architectural differences between LLaMA and the original Transformer?",
+    "ground_truth": "LLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU activation functions, and uses Rotary Position Embeddings (RoPE) instead of absolute positional encodings.",
+    "expected_sources": [
+      "llama_paper.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q07",
+    "category": "Code Explanation",
+    "question": "What does the clean_text method in DocumentProcessor do?",
+    "ground_truth": "The clean_text method uses regular expressions to normalize multiple whitespace characters into single spaces, strips out non-ASCII characters, and trims leading and trailing whitespace from document text.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q08",
+    "category": "Code Explanation",
+    "question": "Explain how TextChunker configures chunk sizes and overlaps for small, medium, and large modes.",
+    "ground_truth": "TextChunker defines small with chunk_size=200 and overlap=40; medium with chunk_size=500 and overlap=100; and large with chunk_size=1000 and overlap=200 using RecursiveCharacterTextSplitter.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q09",
+    "category": "Code Explanation",
+    "question": "Explain how reciprocal_rank_fusion (RRF) combines search results from Chroma and FAISS.",
+    "ground_truth": "RRF queries both Chroma and FAISS for 2*top_k results, computes rank scores as sum(1 / (k + rank + 1)) with k=60 across both result lists, and returns the highest scoring combined unique documents.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q10",
+    "category": "Code Explanation",
+    "question": "How does ModelCoordinator ensure that multiple models do not cause an Out-Of-Memory (OOM) error?",
+    "ground_truth": "ModelCoordinator tracks all registered managers and when a manager requests to load a model, it unloads all other managers first, invokes gc.collect(), and clears torch.cuda cache so only one model resides in memory.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q11",
+    "category": "Architecture & Dataflow",
+    "question": "Which classes and methods are involved in loading documents and building the vector indices in app.py?",
+    "ground_truth": "DocumentProcessor loads and cleans files, TextChunker splits them into chunks, EmbeddingManager generates dense vector embeddings, and ChromaVectorStore.build_index and FAISSVectorStore.build_index construct the respective search indices.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q12",
+    "category": "Architecture & Dataflow",
+    "question": "Trace the execution flow from the moment a user submits a question in app.py to receiving the answer.",
+    "ground_truth": "The user query is received in app.py and sent to RAGPipeline.answer, which calls SemanticSearcher to embed the query and retrieve top chunks from Chroma/FAISS, formats the context preview, builds the prompt, and passes it to LLMManager.generate.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q13",
+    "category": "Architecture & Dataflow",
+    "question": "Which components in the repository must be updated if a new vector store (e.g. Qdrant) is added?",
+    "ground_truth": "A new QdrantVectorStore class must be added to rag_logic.py implementing build_index and search, SemanticSearcher must accept it, get_managers in app.py must instantiate it, and the sidebar selectbox in app.py must include the new option.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q14",
+    "category": "Bug Analysis",
+    "question": "What happens if PyPDFLoader encounters an encrypted or corrupted PDF file in DocumentProcessor?",
+    "ground_truth": "DocumentProcessor wraps file loading in a try-except block, printing the error message to console and continuing with remaining files without crashing the application.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q15",
+    "category": "Bug Analysis",
+    "question": "Why would passing BitsAndBytesConfig(load_in_4bit=True) cause an error on a CPU-only deployment VM?",
+    "ground_truth": "BitsAndBytes 4-bit quantization requires CUDA GPU support; running it on CPU throws a ValueError because CPU device dispatch is not supported for 4-bit quantization.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q16",
+    "category": "Bug Analysis",
+    "question": "What happens if a user submits a query to FAISSVectorStore before any documents have been indexed?",
+    "ground_truth": "FAISSVectorStore checks if self.index is None and immediately returns an empty list, preventing index search crashes when no documents are indexed.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q17",
+    "category": "Code Generation",
+    "question": "Write a Python unit test using unittest to verify that TextChunker adds chunk_id to document metadata.",
+    "ground_truth": "import unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_documents(docs, 'small')\n        self.assertIn('chunk_id', chunks[0].metadata)",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": true
+  },
+  {
+    "id": "Q18",
+    "category": "Code Generation",
+    "question": "Write a Python helper function to compute cosine similarity between two numpy embedding vectors.",
+    "ground_truth": "import numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": true
+  },
+  {
+    "id": "Q19",
+    "category": "Code Generation",
+    "question": "Write a Python snippet to count the total number of words across all retrieved chunks in RAGPipeline.",
+    "ground_truth": "def count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": true
+  },
+  {
+    "id": "Q20",
+    "category": "Refactoring",
+    "question": "Suggest a memory optimization for build_context in RAGPipeline to prevent prompt token overflow.",
+    "ground_truth": "Enforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or token limit is reached, and deduplicating chunks that have overlapping text.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q21",
+    "category": "Refactoring",
+    "question": "How can the batch_size parameter in EmbeddingManager.embed_texts be dynamically adjusted based on available RAM?",
+    "ground_truth": "By checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and reducing batch_size from 32 to 8 or 4 if free memory falls below 1 GB.",
+    "expected_sources": [
+      "codebase_architecture.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q22",
+    "category": "Hallucination Check",
+    "question": "What optimizer and learning rate schedule did the authors of the Transformer paper use?",
+    "ground_truth": "The Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learning rate that increases linearly for warmup_steps and decays proportionally to the inverse square root of step_num.",
+    "expected_sources": [
+      "transformer_paper.txt"
+    ],
+    "is_code_task": false
+  },
+  {
+    "id": "Q23",
+    "category": "Hallucination Check",
+    "question": "What is the capital of France and who was Napoleon Bonaparte?",
+    "ground_truth": "I don't have enough information in the provided documents to answer this question.",
+    "expected_sources": [],
+    "is_code_task": false
+  },
+  {
+    "id": "Q24",
+    "category": "Hallucination Check",
+    "question": "How does the project documentation describe the quantum annealing algorithm implemented in rag_logic.py?",
+    "ground_truth": "I don't have enough information in the provided documents to answer this question.",
+    "expected_sources": [],
+    "is_code_task": false
+  },
+  {
+    "id": "Q25",
+    "category": "Hallucination Check",
+    "question": "What rank r values did the LoRA paper experiment with on downstream tasks?",
+    "ground_truth": "The LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small rank such as r=4 was sufficient for competitive performance on GPT-3.",
+    "expected_sources": [
+      "lora_paper.txt"
+    ],
+    "is_code_task": false
+  }
+]

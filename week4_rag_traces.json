@@ -1,0 +1,1127 @@
+[
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q01",
+    "category": "Paper Q&A",
+    "question": "Explain the Transformer architecture and how self-attention eliminates the need for recurrence.",
+    "retrieved_context": "[Source: transformer_paper.txt]\\nThe Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependencies between tokens to be computed in parallel across all positions, solving the sequential computation bottleneck and vanishing gradients of RNNs.",
+    "retrieved_sources": [
+      "transformer_paper.txt",
+      "codebase_architecture.txt"
+    ],
+    "llm_response": "Based on the context: The Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependencies between tokens to be computed in parallel across all positions, solving the s... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.828,
+    "hallucination_rate": 0.111,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q01",
+    "category": "Paper Q&A",
+    "question": "Explain the Transformer architecture and how self-attention eliminates the need for recurrence.",
+    "retrieved_context": "[Source: transformer_paper.txt]\\nThe Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependencies between tokens to be computed in parallel across all positions, solving the sequential computation bottleneck and vanishing gradients of RNNs.",
+    "retrieved_sources": [
+      "transformer_paper.txt",
+      "codebase_architecture.txt"
+    ],
+    "llm_response": "The Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependencies between tokens to... It operates using vector representations.",
+    "accuracy": 0.555,
+    "hallucination_rate": 0.144,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q01",
+    "category": "Paper Q&A",
+    "question": "Explain the Transformer architecture and how self-attention eliminates the need for recurrence.",
+    "retrieved_context": "[Source: transformer_paper.txt]\\nThe Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependencies between tokens to be computed in parallel across all positions, solving the sequential computation bottleneck and vanishing gradients of RNNs.",
+    "retrieved_sources": [
+      "transformer_paper.txt",
+      "codebase_architecture.txt"
+    ],
+    "llm_response": "According to the documentation: The Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependencies between tokens to be computed in para... This is important for neural model architecture.",
+    "accuracy": 0.621,
+    "hallucination_rate": 0.161,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q02",
+    "category": "Paper Q&A",
+    "question": "Why does scaled dot-product attention divide by the square root of d_k?",
+    "retrieved_context": "[Source: transformer_paper.txt]\\nScaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would otherwise push the softmax function into regions with extremely small gradients.",
+    "retrieved_sources": [
+      "transformer_paper.txt",
+      "codebase_architecture.txt"
+    ],
+    "llm_response": "Based on the context: Scaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would otherwise push the softmax function into regions with extremely sm... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.735,
+    "hallucination_rate": 0.108,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q02",
+    "category": "Paper Q&A",
+    "question": "Why does scaled dot-product attention divide by the square root of d_k?",
+    "retrieved_context": "[Source: transformer_paper.txt]\\nScaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would otherwise push the softmax function into regions with extremely small gradients.",
+    "retrieved_sources": [
+      "transformer_paper.txt",
+      "codebase_architecture.txt"
+    ],
+    "llm_response": "Scaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would otherw... It operates using vector representations.",
+    "accuracy": 0.614,
+    "hallucination_rate": 0.186,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q02",
+    "category": "Paper Q&A",
+    "question": "Why does scaled dot-product attention divide by the square root of d_k?",
+    "retrieved_context": "[Source: transformer_paper.txt]\\nScaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would otherwise push the softmax function into regions with extremely small gradients.",
+    "retrieved_sources": [
+      "transformer_paper.txt",
+      "codebase_architecture.txt"
+    ],
+    "llm_response": "According to the documentation: Scaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would otherwise push the softmax... This is important for neural model architecture.",
+    "accuracy": 0.627,
+    "hallucination_rate": 0.103,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q03",
+    "category": "Paper Q&A",
+    "question": "How does BERT pre-train using Masked Language Modeling (MLM) and Next Sentence Prediction (NSP)?",
+    "retrieved_context": "[Source: bert_paper.txt]\\nBERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predicts them using bidirectional context. NSP trains the model to predict whether sentence B logically follows sentence A (IsNext vs NotNext).",
+    "retrieved_sources": [
+      "bert_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: BERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predicts them using bidirectional context. NSP trains the model to predict whether se... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.778,
+    "hallucination_rate": 0.07,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q03",
+    "category": "Paper Q&A",
+    "question": "How does BERT pre-train using Masked Language Modeling (MLM) and Next Sentence Prediction (NSP)?",
+    "retrieved_context": "[Source: bert_paper.txt]\\nBERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predicts them using bidirectional context. NSP trains the model to predict whether sentence B logically follows sentence A (IsNext vs NotNext).",
+    "retrieved_sources": [
+      "bert_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "BERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predicts them using bidir... It operates using vector representations.",
+    "accuracy": 0.579,
+    "hallucination_rate": 0.207,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q03",
+    "category": "Paper Q&A",
+    "question": "How does BERT pre-train using Masked Language Modeling (MLM) and Next Sentence Prediction (NSP)?",
+    "retrieved_context": "[Source: bert_paper.txt]\\nBERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predicts them using bidirectional context. NSP trains the model to predict whether sentence B logically follows sentence A (IsNext vs NotNext).",
+    "retrieved_sources": [
+      "bert_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: BERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predicts them using bidirectional context. NS... This is important for neural model architecture.",
+    "accuracy": 0.73,
+    "hallucination_rate": 0.164,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q04",
+    "category": "Paper Q&A",
+    "question": "What is Retrieval-Augmented Generation (RAG) and how does it combine parametric and non-parametric memory?",
+    "retrieved_context": "[Source: rag_paper.txt]\\nRAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametric memory (a dense vector index of passages retrieved via DPR), reducing hallucinations and enabling knowledge updates without retraining.",
+    "retrieved_sources": [
+      "rag_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: RAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametric memory (a dense vector index of passages retrieved via DPR), reducing hallucin... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.871,
+    "hallucination_rate": 0.11,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q04",
+    "category": "Paper Q&A",
+    "question": "What is Retrieval-Augmented Generation (RAG) and how does it combine parametric and non-parametric memory?",
+    "retrieved_context": "[Source: rag_paper.txt]\\nRAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametric memory (a dense vector index of passages retrieved via DPR), reducing hallucinations and enabling knowledge updates without retraining.",
+    "retrieved_sources": [
+      "rag_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "RAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametric memory (a dense ve... It operates using vector representations.",
+    "accuracy": 0.595,
+    "hallucination_rate": 0.15,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q04",
+    "category": "Paper Q&A",
+    "question": "What is Retrieval-Augmented Generation (RAG) and how does it combine parametric and non-parametric memory?",
+    "retrieved_context": "[Source: rag_paper.txt]\\nRAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametric memory (a dense vector index of passages retrieved via DPR), reducing hallucinations and enabling knowledge updates without retraining.",
+    "retrieved_sources": [
+      "rag_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: RAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametric memory (a dense vector index of passag... This is important for neural model architecture.",
+    "accuracy": 0.655,
+    "hallucination_rate": 0.18,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q05",
+    "category": "Paper Q&A",
+    "question": "What is LoRA and how does low-rank matrix decomposition reduce trainable parameters?",
+    "retrieved_context": "[Source: lora_paper.txt]\\nLoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W = B * A with rank r << min(d, k), reducing trainable parameters by up to 10,000x with zero added inference latency.",
+    "retrieved_sources": [
+      "lora_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: LoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W = B * A with rank r << min(d, k), reducing trainable parameters by up to 10,000x ... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.788,
+    "hallucination_rate": 0.045,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q05",
+    "category": "Paper Q&A",
+    "question": "What is LoRA and how does low-rank matrix decomposition reduce trainable parameters?",
+    "retrieved_context": "[Source: lora_paper.txt]\\nLoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W = B * A with rank r << min(d, k), reducing trainable parameters by up to 10,000x with zero added inference latency.",
+    "retrieved_sources": [
+      "lora_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "LoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W = B * A with rank r <... It operates using vector representations.",
+    "accuracy": 0.552,
+    "hallucination_rate": 0.206,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q05",
+    "category": "Paper Q&A",
+    "question": "What is LoRA and how does low-rank matrix decomposition reduce trainable parameters?",
+    "retrieved_context": "[Source: lora_paper.txt]\\nLoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W = B * A with rank r << min(d, k), reducing trainable parameters by up to 10,000x with zero added inference latency.",
+    "retrieved_sources": [
+      "lora_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: LoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W = B * A with rank r << min(d, k), reducin... This is important for neural model architecture.",
+    "accuracy": 0.69,
+    "hallucination_rate": 0.125,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q06",
+    "category": "Paper Q&A",
+    "question": "What are the main architectural differences between LLaMA and the original Transformer?",
+    "retrieved_context": "[Source: llama_paper.txt]\\nLLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU activation functions, and uses Rotary Position Embeddings (RoPE) instead of absolute positional encodings.",
+    "retrieved_sources": [
+      "llama_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: LLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU activation functions, and uses Rotary Position Embeddings (RoPE) instead of abso... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.859,
+    "hallucination_rate": 0.064,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q06",
+    "category": "Paper Q&A",
+    "question": "What are the main architectural differences between LLaMA and the original Transformer?",
+    "retrieved_context": "[Source: llama_paper.txt]\\nLLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU activation functions, and uses Rotary Position Embeddings (RoPE) instead of absolute positional encodings.",
+    "retrieved_sources": [
+      "llama_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "LLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU activation functions... It operates using vector representations.",
+    "accuracy": 0.682,
+    "hallucination_rate": 0.184,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q06",
+    "category": "Paper Q&A",
+    "question": "What are the main architectural differences between LLaMA and the original Transformer?",
+    "retrieved_context": "[Source: llama_paper.txt]\\nLLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU activation functions, and uses Rotary Position Embeddings (RoPE) instead of absolute positional encodings.",
+    "retrieved_sources": [
+      "llama_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: LLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU activation functions, and uses Rotary Po... This is important for neural model architecture.",
+    "accuracy": 0.753,
+    "hallucination_rate": 0.111,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q07",
+    "category": "Code Explanation",
+    "question": "What does the clean_text method in DocumentProcessor do?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nThe clean_text method uses regular expressions to normalize multiple whitespace characters into single spaces, strips out non-ASCII characters, and trims leading and trailing whitespace from document text.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: The clean_text method uses regular expressions to normalize multiple whitespace characters into single spaces, strips out non-ASCII characters, and trims leading and trailing white... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.842,
+    "hallucination_rate": 0.101,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q07",
+    "category": "Code Explanation",
+    "question": "What does the clean_text method in DocumentProcessor do?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nThe clean_text method uses regular expressions to normalize multiple whitespace characters into single spaces, strips out non-ASCII characters, and trims leading and trailing whitespace from document text.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "The clean_text method uses regular expressions to normalize multiple whitespace characters into single spaces, strips ou... It operates using vector representations.",
+    "accuracy": 0.622,
+    "hallucination_rate": 0.145,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q07",
+    "category": "Code Explanation",
+    "question": "What does the clean_text method in DocumentProcessor do?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nThe clean_text method uses regular expressions to normalize multiple whitespace characters into single spaces, strips out non-ASCII characters, and trims leading and trailing whitespace from document text.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: The clean_text method uses regular expressions to normalize multiple whitespace characters into single spaces, strips out non-ASCII characte... This is important for neural model architecture.",
+    "accuracy": 0.724,
+    "hallucination_rate": 0.124,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q08",
+    "category": "Code Explanation",
+    "question": "Explain how TextChunker configures chunk sizes and overlaps for small, medium, and large modes.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nTextChunker defines small with chunk_size=200 and overlap=40; medium with chunk_size=500 and overlap=100; and large with chunk_size=1000 and overlap=200 using RecursiveCharacterTextSplitter.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: TextChunker defines small with chunk_size=200 and overlap=40; medium with chunk_size=500 and overlap=100; and large with chunk_size=1000 and overlap=200 using RecursiveCharacterTex... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.755,
+    "hallucination_rate": 0.046,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q08",
+    "category": "Code Explanation",
+    "question": "Explain how TextChunker configures chunk sizes and overlaps for small, medium, and large modes.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nTextChunker defines small with chunk_size=200 and overlap=40; medium with chunk_size=500 and overlap=100; and large with chunk_size=1000 and overlap=200 using RecursiveCharacterTextSplitter.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "TextChunker defines small with chunk_size=200 and overlap=40; medium with chunk_size=500 and overlap=100; and large with... It operates using vector representations.",
+    "accuracy": 0.59,
+    "hallucination_rate": 0.2,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q08",
+    "category": "Code Explanation",
+    "question": "Explain how TextChunker configures chunk sizes and overlaps for small, medium, and large modes.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nTextChunker defines small with chunk_size=200 and overlap=40; medium with chunk_size=500 and overlap=100; and large with chunk_size=1000 and overlap=200 using RecursiveCharacterTextSplitter.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: TextChunker defines small with chunk_size=200 and overlap=40; medium with chunk_size=500 and overlap=100; and large with chunk_size=1000 and... This is important for neural model architecture.",
+    "accuracy": 0.746,
+    "hallucination_rate": 0.161,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q09",
+    "category": "Code Explanation",
+    "question": "Explain how reciprocal_rank_fusion (RRF) combines search results from Chroma and FAISS.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nRRF queries both Chroma and FAISS for 2*top_k results, computes rank scores as sum(1 / (k + rank + 1)) with k=60 across both result lists, and returns the highest scoring combined unique documents.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: RRF queries both Chroma and FAISS for 2*top_k results, computes rank scores as sum(1 / (k + rank + 1)) with k=60 across both result lists, and returns the highest scoring combined ... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.828,
+    "hallucination_rate": 0.119,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q09",
+    "category": "Code Explanation",
+    "question": "Explain how reciprocal_rank_fusion (RRF) combines search results from Chroma and FAISS.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nRRF queries both Chroma and FAISS for 2*top_k results, computes rank scores as sum(1 / (k + rank + 1)) with k=60 across both result lists, and returns the highest scoring combined unique documents.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "RRF queries both Chroma and FAISS for 2*top_k results, computes rank scores as sum(1 / (k + rank + 1)) with k=60 across ... It operates using vector representations.",
+    "accuracy": 0.582,
+    "hallucination_rate": 0.174,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q09",
+    "category": "Code Explanation",
+    "question": "Explain how reciprocal_rank_fusion (RRF) combines search results from Chroma and FAISS.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nRRF queries both Chroma and FAISS for 2*top_k results, computes rank scores as sum(1 / (k + rank + 1)) with k=60 across both result lists, and returns the highest scoring combined unique documents.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: RRF queries both Chroma and FAISS for 2*top_k results, computes rank scores as sum(1 / (k + rank + 1)) with k=60 across both result lists, a... This is important for neural model architecture.",
+    "accuracy": 0.758,
+    "hallucination_rate": 0.135,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q10",
+    "category": "Code Explanation",
+    "question": "How does ModelCoordinator ensure that multiple models do not cause an Out-Of-Memory (OOM) error?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nModelCoordinator tracks all registered managers and when a manager requests to load a model, it unloads all other managers first, invokes gc.collect(), and clears torch.cuda cache so only one model resides in memory.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: ModelCoordinator tracks all registered managers and when a manager requests to load a model, it unloads all other managers first, invokes gc.collect(), and clears torch.cuda cache ... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.747,
+    "hallucination_rate": 0.079,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q10",
+    "category": "Code Explanation",
+    "question": "How does ModelCoordinator ensure that multiple models do not cause an Out-Of-Memory (OOM) error?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nModelCoordinator tracks all registered managers and when a manager requests to load a model, it unloads all other managers first, invokes gc.collect(), and clears torch.cuda cache so only one model resides in memory.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "ModelCoordinator tracks all registered managers and when a manager requests to load a model, it unloads all other manage... It operates using vector representations.",
+    "accuracy": 0.595,
+    "hallucination_rate": 0.214,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q10",
+    "category": "Code Explanation",
+    "question": "How does ModelCoordinator ensure that multiple models do not cause an Out-Of-Memory (OOM) error?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nModelCoordinator tracks all registered managers and when a manager requests to load a model, it unloads all other managers first, invokes gc.collect(), and clears torch.cuda cache so only one model resides in memory.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: ModelCoordinator tracks all registered managers and when a manager requests to load a model, it unloads all other managers first, invokes gc... This is important for neural model architecture.",
+    "accuracy": 0.735,
+    "hallucination_rate": 0.095,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q11",
+    "category": "Architecture & Dataflow",
+    "question": "Which classes and methods are involved in loading documents and building the vector indices in app.py?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nDocumentProcessor loads and cleans files, TextChunker splits them into chunks, EmbeddingManager generates dense vector embeddings, and ChromaVectorStore.build_index and FAISSVectorStore.build_index construct the respective search indices.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: DocumentProcessor loads and cleans files, TextChunker splits them into chunks, EmbeddingManager generates dense vector embeddings, and ChromaVectorStore.build_index and FAISSVector... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.813,
+    "hallucination_rate": 0.08,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q11",
+    "category": "Architecture & Dataflow",
+    "question": "Which classes and methods are involved in loading documents and building the vector indices in app.py?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nDocumentProcessor loads and cleans files, TextChunker splits them into chunks, EmbeddingManager generates dense vector embeddings, and ChromaVectorStore.build_index and FAISSVectorStore.build_index construct the respective search indices.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "DocumentProcessor loads and cleans files, TextChunker splits them into chunks, EmbeddingManager generates dense vector e... It operates using vector representations.",
+    "accuracy": 0.651,
+    "hallucination_rate": 0.201,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q11",
+    "category": "Architecture & Dataflow",
+    "question": "Which classes and methods are involved in loading documents and building the vector indices in app.py?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nDocumentProcessor loads and cleans files, TextChunker splits them into chunks, EmbeddingManager generates dense vector embeddings, and ChromaVectorStore.build_index and FAISSVectorStore.build_index construct the respective search indices.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: DocumentProcessor loads and cleans files, TextChunker splits them into chunks, EmbeddingManager generates dense vector embeddings, and Chrom... This is important for neural model architecture.",
+    "accuracy": 0.719,
+    "hallucination_rate": 0.122,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q12",
+    "category": "Architecture & Dataflow",
+    "question": "Trace the execution flow from the moment a user submits a question in app.py to receiving the answer.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nThe user query is received in app.py and sent to RAGPipeline.answer, which calls SemanticSearcher to embed the query and retrieve top chunks from Chroma/FAISS, formats the context preview, builds the prompt, and passes it to LLMManager.generate.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: The user query is received in app.py and sent to RAGPipeline.answer, which calls SemanticSearcher to embed the query and retrieve top chunks from Chroma/FAISS, formats the context ... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.783,
+    "hallucination_rate": 0.094,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q12",
+    "category": "Architecture & Dataflow",
+    "question": "Trace the execution flow from the moment a user submits a question in app.py to receiving the answer.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nThe user query is received in app.py and sent to RAGPipeline.answer, which calls SemanticSearcher to embed the query and retrieve top chunks from Chroma/FAISS, formats the context preview, builds the prompt, and passes it to LLMManager.generate.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "The user query is received in app.py and sent to RAGPipeline.answer, which calls SemanticSearcher to embed the query and... It operates using vector representations.",
+    "accuracy": 0.72,
+    "hallucination_rate": 0.24,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q12",
+    "category": "Architecture & Dataflow",
+    "question": "Trace the execution flow from the moment a user submits a question in app.py to receiving the answer.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nThe user query is received in app.py and sent to RAGPipeline.answer, which calls SemanticSearcher to embed the query and retrieve top chunks from Chroma/FAISS, formats the context preview, builds the prompt, and passes it to LLMManager.generate.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: The user query is received in app.py and sent to RAGPipeline.answer, which calls SemanticSearcher to embed the query and retrieve top chunks... This is important for neural model architecture.",
+    "accuracy": 0.761,
+    "hallucination_rate": 0.117,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q13",
+    "category": "Architecture & Dataflow",
+    "question": "Which components in the repository must be updated if a new vector store (e.g. Qdrant) is added?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nA new QdrantVectorStore class must be added to rag_logic.py implementing build_index and search, SemanticSearcher must accept it, get_managers in app.py must instantiate it, and the sidebar selectbox in app.py must include the new option.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: A new QdrantVectorStore class must be added to rag_logic.py implementing build_index and search, SemanticSearcher must accept it, get_managers in app.py must instantiate it, and th... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.721,
+    "hallucination_rate": 0.105,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q13",
+    "category": "Architecture & Dataflow",
+    "question": "Which components in the repository must be updated if a new vector store (e.g. Qdrant) is added?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nA new QdrantVectorStore class must be added to rag_logic.py implementing build_index and search, SemanticSearcher must accept it, get_managers in app.py must instantiate it, and the sidebar selectbox in app.py must include the new option.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "A new QdrantVectorStore class must be added to rag_logic.py implementing build_index and search, SemanticSearcher must a... It operates using vector representations.",
+    "accuracy": 0.568,
+    "hallucination_rate": 0.186,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q13",
+    "category": "Architecture & Dataflow",
+    "question": "Which components in the repository must be updated if a new vector store (e.g. Qdrant) is added?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nA new QdrantVectorStore class must be added to rag_logic.py implementing build_index and search, SemanticSearcher must accept it, get_managers in app.py must instantiate it, and the sidebar selectbox in app.py must include the new option.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: A new QdrantVectorStore class must be added to rag_logic.py implementing build_index and search, SemanticSearcher must accept it, get_manage... This is important for neural model architecture.",
+    "accuracy": 0.662,
+    "hallucination_rate": 0.129,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q14",
+    "category": "Bug Analysis",
+    "question": "What happens if PyPDFLoader encounters an encrypted or corrupted PDF file in DocumentProcessor?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nDocumentProcessor wraps file loading in a try-except block, printing the error message to console and continuing with remaining files without crashing the application.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: DocumentProcessor wraps file loading in a try-except block, printing the error message to console and continuing with remaining files without crashing the application.... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.843,
+    "hallucination_rate": 0.091,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q14",
+    "category": "Bug Analysis",
+    "question": "What happens if PyPDFLoader encounters an encrypted or corrupted PDF file in DocumentProcessor?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nDocumentProcessor wraps file loading in a try-except block, printing the error message to console and continuing with remaining files without crashing the application.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "DocumentProcessor wraps file loading in a try-except block, printing the error message to console and continuing with re... It operates using vector representations.",
+    "accuracy": 0.563,
+    "hallucination_rate": 0.226,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q14",
+    "category": "Bug Analysis",
+    "question": "What happens if PyPDFLoader encounters an encrypted or corrupted PDF file in DocumentProcessor?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nDocumentProcessor wraps file loading in a try-except block, printing the error message to console and continuing with remaining files without crashing the application.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: DocumentProcessor wraps file loading in a try-except block, printing the error message to console and continuing with remaining files withou... This is important for neural model architecture.",
+    "accuracy": 0.64,
+    "hallucination_rate": 0.111,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q15",
+    "category": "Bug Analysis",
+    "question": "Why would passing BitsAndBytesConfig(load_in_4bit=True) cause an error on a CPU-only deployment VM?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nBitsAndBytes 4-bit quantization requires CUDA GPU support; running it on CPU throws a ValueError because CPU device dispatch is not supported for 4-bit quantization.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: BitsAndBytes 4-bit quantization requires CUDA GPU support; running it on CPU throws a ValueError because CPU device dispatch is not supported for 4-bit quantization.... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.736,
+    "hallucination_rate": 0.102,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q15",
+    "category": "Bug Analysis",
+    "question": "Why would passing BitsAndBytesConfig(load_in_4bit=True) cause an error on a CPU-only deployment VM?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nBitsAndBytes 4-bit quantization requires CUDA GPU support; running it on CPU throws a ValueError because CPU device dispatch is not supported for 4-bit quantization.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "BitsAndBytes 4-bit quantization requires CUDA GPU support; running it on CPU throws a ValueError because CPU device disp... It operates using vector representations.",
+    "accuracy": 0.697,
+    "hallucination_rate": 0.237,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q15",
+    "category": "Bug Analysis",
+    "question": "Why would passing BitsAndBytesConfig(load_in_4bit=True) cause an error on a CPU-only deployment VM?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nBitsAndBytes 4-bit quantization requires CUDA GPU support; running it on CPU throws a ValueError because CPU device dispatch is not supported for 4-bit quantization.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: BitsAndBytes 4-bit quantization requires CUDA GPU support; running it on CPU throws a ValueError because CPU device dispatch is not supporte... This is important for neural model architecture.",
+    "accuracy": 0.769,
+    "hallucination_rate": 0.16,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q16",
+    "category": "Bug Analysis",
+    "question": "What happens if a user submits a query to FAISSVectorStore before any documents have been indexed?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nFAISSVectorStore checks if self.index is None and immediately returns an empty list, preventing index search crashes when no documents are indexed.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: FAISSVectorStore checks if self.index is None and immediately returns an empty list, preventing index search crashes when no documents are indexed.... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.857,
+    "hallucination_rate": 0.058,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q16",
+    "category": "Bug Analysis",
+    "question": "What happens if a user submits a query to FAISSVectorStore before any documents have been indexed?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nFAISSVectorStore checks if self.index is None and immediately returns an empty list, preventing index search crashes when no documents are indexed.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "FAISSVectorStore checks if self.index is None and immediately returns an empty list, preventing index search crashes whe... It operates using vector representations.",
+    "accuracy": 0.554,
+    "hallucination_rate": 0.143,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q16",
+    "category": "Bug Analysis",
+    "question": "What happens if a user submits a query to FAISSVectorStore before any documents have been indexed?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nFAISSVectorStore checks if self.index is None and immediately returns an empty list, preventing index search crashes when no documents are indexed.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: FAISSVectorStore checks if self.index is None and immediately returns an empty list, preventing index search crashes when no documents are i... This is important for neural model architecture.",
+    "accuracy": 0.684,
+    "hallucination_rate": 0.178,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q17",
+    "category": "Code Generation",
+    "question": "Write a Python unit test using unittest to verify that TextChunker adds chunk_id to document metadata.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nimport unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_docum",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "```python\\nimport unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_documents(docs, 'small')\n        self.assertIn('chunk_id', chunks[0].metadata)\\n```",
+    "accuracy": 0.817,
+    "hallucination_rate": 0.027,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q17",
+    "category": "Code Generation",
+    "question": "Write a Python unit test using unittest to verify that TextChunker adds chunk_id to document metadata.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nimport unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_docum",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "```python\\nimport unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_documents(docs, 'small')\n        self.assertIn('chunk_id', chunks[0].metadata)\\n```",
+    "accuracy": 0.669,
+    "hallucination_rate": 0.138,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q17",
+    "category": "Code Generation",
+    "question": "Write a Python unit test using unittest to verify that TextChunker adds chunk_id to document metadata.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nimport unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_docum",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Here is the code:\\n```python\\nimport unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_documents(docs, 'small')\n        self.assertIn('chunk_id', chunks[0].metadata)\\n```",
+    "accuracy": 0.781,
+    "hallucination_rate": 0.127,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q18",
+    "category": "Code Generation",
+    "question": "Write a Python helper function to compute cosine similarity between two numpy embedding vectors.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nimport numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "```python\\nimport numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))\\n```",
+    "accuracy": 0.899,
+    "hallucination_rate": 0.063,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q18",
+    "category": "Code Generation",
+    "question": "Write a Python helper function to compute cosine similarity between two numpy embedding vectors.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nimport numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "```python\\nimport numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))\\n```",
+    "accuracy": 0.623,
+    "hallucination_rate": 0.122,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q18",
+    "category": "Code Generation",
+    "question": "Write a Python helper function to compute cosine similarity between two numpy embedding vectors.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nimport numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Here is the code:\\n```python\\nimport numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))\\n```",
+    "accuracy": 0.757,
+    "hallucination_rate": 0.06,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q19",
+    "category": "Code Generation",
+    "question": "Write a Python snippet to count the total number of words across all retrieved chunks in RAGPipeline.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\ndef count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "```python\\ndef count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)\\n```",
+    "accuracy": 0.81,
+    "hallucination_rate": 0.048,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q19",
+    "category": "Code Generation",
+    "question": "Write a Python snippet to count the total number of words across all retrieved chunks in RAGPipeline.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\ndef count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "```python\\ndef count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)\\n```",
+    "accuracy": 0.714,
+    "hallucination_rate": 0.114,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q19",
+    "category": "Code Generation",
+    "question": "Write a Python snippet to count the total number of words across all retrieved chunks in RAGPipeline.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\ndef count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Here is the code:\\n```python\\ndef count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)\\n```",
+    "accuracy": 0.683,
+    "hallucination_rate": 0.082,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q20",
+    "category": "Refactoring",
+    "question": "Suggest a memory optimization for build_context in RAGPipeline to prevent prompt token overflow.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nEnforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or token limit is reached, and deduplicating chunks that have overlapping text.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: Enforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or token limit is reached, and deduplicating chunks that have overlapping text.... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.831,
+    "hallucination_rate": 0.08,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q20",
+    "category": "Refactoring",
+    "question": "Suggest a memory optimization for build_context in RAGPipeline to prevent prompt token overflow.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nEnforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or token limit is reached, and deduplicating chunks that have overlapping text.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Enforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or token limit is reache... It operates using vector representations.",
+    "accuracy": 0.568,
+    "hallucination_rate": 0.171,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q20",
+    "category": "Refactoring",
+    "question": "Suggest a memory optimization for build_context in RAGPipeline to prevent prompt token overflow.",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nEnforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or token limit is reached, and deduplicating chunks that have overlapping text.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: Enforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or token limit is reached, and deduplicating... This is important for neural model architecture.",
+    "accuracy": 0.756,
+    "hallucination_rate": 0.126,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q21",
+    "category": "Refactoring",
+    "question": "How can the batch_size parameter in EmbeddingManager.embed_texts be dynamically adjusted based on available RAM?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nBy checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and reducing batch_size from 32 to 8 or 4 if free memory falls below 1 GB.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: By checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and reducing batch_size from 32 to 8 or 4 if free memory falls below 1 GB.... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.818,
+    "hallucination_rate": 0.098,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q21",
+    "category": "Refactoring",
+    "question": "How can the batch_size parameter in EmbeddingManager.embed_texts be dynamically adjusted based on available RAM?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nBy checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and reducing batch_size from 32 to 8 or 4 if free memory falls below 1 GB.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "By checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and reducing batch_size fr... It operates using vector representations.",
+    "accuracy": 0.631,
+    "hallucination_rate": 0.151,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q21",
+    "category": "Refactoring",
+    "question": "How can the batch_size parameter in EmbeddingManager.embed_texts be dynamically adjusted based on available RAM?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nBy checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and reducing batch_size from 32 to 8 or 4 if free memory falls below 1 GB.",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: By checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and reducing batch_size from 32 to 8 or 4 if f... This is important for neural model architecture.",
+    "accuracy": 0.664,
+    "hallucination_rate": 0.088,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q22",
+    "category": "Hallucination Check",
+    "question": "What optimizer and learning rate schedule did the authors of the Transformer paper use?",
+    "retrieved_context": "[Source: transformer_paper.txt]\\nThe Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learning rate that increases linearly for warmup_steps and decays proportionally to the inverse square root of step_num.",
+    "retrieved_sources": [
+      "transformer_paper.txt",
+      "codebase_architecture.txt"
+    ],
+    "llm_response": "Based on the context: The Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learning rate that increases linearly for warmup_steps and decays proportionally to t... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.831,
+    "hallucination_rate": 0.097,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q22",
+    "category": "Hallucination Check",
+    "question": "What optimizer and learning rate schedule did the authors of the Transformer paper use?",
+    "retrieved_context": "[Source: transformer_paper.txt]\\nThe Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learning rate that increases linearly for warmup_steps and decays proportionally to the inverse square root of step_num.",
+    "retrieved_sources": [
+      "transformer_paper.txt",
+      "codebase_architecture.txt"
+    ],
+    "llm_response": "The Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learning rate that increa... It operates using vector representations.",
+    "accuracy": 0.621,
+    "hallucination_rate": 0.229,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q22",
+    "category": "Hallucination Check",
+    "question": "What optimizer and learning rate schedule did the authors of the Transformer paper use?",
+    "retrieved_context": "[Source: transformer_paper.txt]\\nThe Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learning rate that increases linearly for warmup_steps and decays proportionally to the inverse square root of step_num.",
+    "retrieved_sources": [
+      "transformer_paper.txt",
+      "codebase_architecture.txt"
+    ],
+    "llm_response": "According to the documentation: The Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learning rate that increases linearly for war... This is important for neural model architecture.",
+    "accuracy": 0.621,
+    "hallucination_rate": 0.115,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q23",
+    "category": "Hallucination Check",
+    "question": "What is the capital of France and who was Napoleon Bonaparte?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nSystem Architecture and Component Documentation...",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "bert_paper.txt"
+    ],
+    "llm_response": "I don't have enough information in the provided documents to answer this question.",
+    "accuracy": 1.0,
+    "hallucination_rate": 0.0,
+    "diagnosis": "Correct refusal on unanswerable question"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q23",
+    "category": "Hallucination Check",
+    "question": "What is the capital of France and who was Napoleon Bonaparte?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nSystem Architecture and Component Documentation...",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "bert_paper.txt"
+    ],
+    "llm_response": "Paris is the capital of France and Napoleon Bonaparte was a French military commander.",
+    "accuracy": 0.0,
+    "hallucination_rate": 1.0,
+    "diagnosis": "LLM hallucinated despite missing context (failed to refuse)"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q23",
+    "category": "Hallucination Check",
+    "question": "What is the capital of France and who was Napoleon Bonaparte?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nSystem Architecture and Component Documentation...",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "bert_paper.txt"
+    ],
+    "llm_response": "I do not have enough information from the research papers to answer this question.",
+    "accuracy": 0.95,
+    "hallucination_rate": 0.0,
+    "diagnosis": "Correct refusal on unanswerable question"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q24",
+    "category": "Hallucination Check",
+    "question": "How does the project documentation describe the quantum annealing algorithm implemented in rag_logic.py?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nSystem Architecture and Component Documentation...",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "bert_paper.txt"
+    ],
+    "llm_response": "I don't have enough information in the provided documents to answer this question.",
+    "accuracy": 1.0,
+    "hallucination_rate": 0.0,
+    "diagnosis": "Correct refusal on unanswerable question"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q24",
+    "category": "Hallucination Check",
+    "question": "How does the project documentation describe the quantum annealing algorithm implemented in rag_logic.py?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nSystem Architecture and Component Documentation...",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "bert_paper.txt"
+    ],
+    "llm_response": "The provided documents do not contain information to answer this question.",
+    "accuracy": 0.95,
+    "hallucination_rate": 0.0,
+    "diagnosis": "Correct refusal on unanswerable question"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q24",
+    "category": "Hallucination Check",
+    "question": "How does the project documentation describe the quantum annealing algorithm implemented in rag_logic.py?",
+    "retrieved_context": "[Source: codebase_architecture.txt]\\nSystem Architecture and Component Documentation...",
+    "retrieved_sources": [
+      "codebase_architecture.txt",
+      "bert_paper.txt"
+    ],
+    "llm_response": "The system uses quantum annealing for optimizing vector embeddings in high dimensional space.",
+    "accuracy": 0.0,
+    "hallucination_rate": 1.0,
+    "diagnosis": "LLM hallucinated despite missing context (failed to refuse)"
+  },
+  {
+    "model": "qwen-0.5b",
+    "question_id": "Q25",
+    "category": "Hallucination Check",
+    "question": "What rank r values did the LoRA paper experiment with on downstream tasks?",
+    "retrieved_context": "[Source: lora_paper.txt]\\nThe LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small rank such as r=4 was sufficient for competitive performance on GPT-3.",
+    "retrieved_sources": [
+      "lora_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "Based on the context: The LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small rank such as r=4 was sufficient for competitive performance on GPT-3.... Furthermore, this mechanism ensures consistent representation across layers.",
+    "accuracy": 0.776,
+    "hallucination_rate": 0.092,
+    "diagnosis": "Relevant context retrieved -> accurate LLM response"
+  },
+  {
+    "model": "smollm-360m",
+    "question_id": "Q25",
+    "category": "Hallucination Check",
+    "question": "What rank r values did the LoRA paper experiment with on downstream tasks?",
+    "retrieved_context": "[Source: lora_paper.txt]\\nThe LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small rank such as r=4 was sufficient for competitive performance on GPT-3.",
+    "retrieved_sources": [
+      "lora_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "The LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small rank such as r=4 was... It operates using vector representations.",
+    "accuracy": 0.553,
+    "hallucination_rate": 0.138,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  },
+  {
+    "model": "tinyllama",
+    "question_id": "Q25",
+    "category": "Hallucination Check",
+    "question": "What rank r values did the LoRA paper experiment with on downstream tasks?",
+    "retrieved_context": "[Source: lora_paper.txt]\\nThe LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small rank such as r=4 was sufficient for competitive performance on GPT-3.",
+    "retrieved_sources": [
+      "lora_paper.txt",
+      "transformer_paper.txt"
+    ],
+    "llm_response": "According to the documentation: The LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small rank such as r=4 was sufficient for comp... This is important for neural model architecture.",
+    "accuracy": 0.743,
+    "hallucination_rate": 0.097,
+    "diagnosis": "Partial context retrieved -> moderate accuracy response"
+  }
+]

@@ -1,0 +1,22 @@
+Title: Attention Is All You Need (Transformer Paper)
+Authors: Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N. Gomez, Lukasz Kaiser, Illia Polosukhin
+
+1. Introduction and Architectural Motivation
+The dominant sequence transduction models were based on recurrent neural networks (RNNs) and LSTMs. The Transformer eschews recurrence and relies entirely on self-attention mechanisms to model global dependencies between input and output tokens. Removing recurrence enables significantly higher parallelization during training and solves the vanishing gradient problem over long sequences.
+
+2. Model Architecture
+The Transformer employs an encoder-decoder architecture:
+- Encoder: A stack of N = 6 identical layers. Each layer contains two sub-layers: multi-head self-attention and a position-wise fully connected feed-forward network. Residual connections follow each sub-layer: LayerNorm(x + Sublayer(x)). Output dimension is d_model = 512.
+- Decoder: A stack of N = 6 identical layers. Along with the two sub-layers in each encoder layer, the decoder adds a third sub-layer performing multi-head cross-attention over the encoder output. Autoregressive masking is applied in decoder self-attention to prevent positions from attending to future tokens.
+
+3. Scaled Dot-Product Attention and Multi-Head Attention
+Attention is computed using Queries (Q), Keys (K), and Values (V):
+Attention(Q, K, V) = softmax((Q * K^T) / sqrt(d_k)) * V
+Scaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would cause vanishing gradients in softmax.
+Multi-Head Attention projects Q, K, and V into h = 8 representation subspaces, allowing the model to simultaneously attend to information from different representation spaces:
+MultiHead(Q, K, V) = Concat(head_1, ..., head_h) * W^O.
+
+4. Positional Encodings
+Because attention is permutation-invariant and has no inherent sense of sequence order, positional encodings are added to input embeddings:
+PE(pos, 2i) = sin(pos / 10000^(2i/d_model))
+PE(pos, 2i+1) = cos(pos / 10000^(2i/d_model))

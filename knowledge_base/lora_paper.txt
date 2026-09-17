@@ -1,0 +1,19 @@
+Title: LoRA: Low-Rank Adaptation of Large Language Models
+Authors: Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weicheng Chen
+
+1. Problem Statement
+Fine-tuning all parameters of massive language models (full fine-tuning) is computationally expensive, requires enormous GPU memory, and requires storing a full copy of the fine-tuned model for every downstream task.
+
+2. Low-Rank Adaptation (LoRA) Mechanism
+LoRA freezes the pre-trained model weights W_0 of dimension (d x k) and injects trainable rank decomposition matrices into layers:
+W = W_0 + Delta_W = W_0 + B * A
+where B has dimension (d x r) and A has dimension (r x k), with rank r << min(d, k).
+During training:
+- Matrix A is initialized with Gaussian distribution N(0, sigma^2).
+- Matrix B is initialized to 0, ensuring Delta_W = 0 at the beginning of training.
+- The forward pass computes: h = W_0 * x + (alpha / r) * B * A * x, where alpha is a constant scaling factor.
+
+3. Benefits of LoRA
+- Memory and Parameter Efficiency: LoRA can reduce the number of trainable parameters by 10,000 times and GPU memory requirements by up to 3 times compared to full fine-tuning (e.g., GPT-3 175B trainable parameters drop from 175B to 37.7M with rank r=4).
+- Zero Inference Latency Overhead: At deployment, the adapter weights Delta_W = B * A can be directly added into W_0, incurring zero additional inference latency compared to the original base model.
+- Easy Task Switching: Deploying multiple task-specific models only requires storing tiny LoRA adapter weights (megabytes) rather than full model checkpoints (gigabytes).

@@ -1,0 +1,14 @@
+Title: LLaMA: Open and Efficient Foundation Language Models
+Authors: Hugo Touvron, Thibaut Lavril, Gautier Izacard, Xavier Martinet, Marie-Anne Boucher, Timothee Lacroix, Baptiste Roziere, Naman Goyal, Eric Hambro, Faisal Azhar, Aurelien Rodriguez, Armand Joulin, Edouard Grave, Guillaume Lample
+
+1. Philosophy and Key Finding
+Hoffmann et al. (Chinchilla scaling laws) showed that for a given compute budget, the best performance is achieved not by building the largest model, but by training smaller models on significantly more data. LLaMA focuses on training models ranging from 7B to 65B parameters on trillions of tokens (1.0T to 1.4T tokens). Smaller models trained longer are much cheaper to serve and run in resource-constrained environments.
+
+2. Architecture Improvements over Original Transformer
+LLaMA makes several architectural modifications:
+- Pre-normalization (RMSNorm): Inspired by GPT-3, LLaMA normalizes the input of each transformer sub-layer using RMSNorm instead of normalizing the output, improving training stability.
+- SwiGLU Activation Function: Replaces standard ReLU with the SwiGLU non-linear activation function (Shazeer, 2020), using dimension 2/3 * 4d.
+- Rotary Position Embeddings (RoPE): Replaces absolute positional embeddings with Rotary Embeddings (Su et al., 2021) applied at each layer, enabling better sequence extrapolation.
+
+3. Efficiency and Results
+LLaMA-13B outperforms GPT-3 (175B) on most NLP benchmarks despite being more than 10 times smaller. LLaMA-65B is competitive with state-of-the-art models like Chinchilla-70B and PaLM-540B while being accessible to researchers.

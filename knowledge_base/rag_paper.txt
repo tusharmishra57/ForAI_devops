@@ -1,0 +1,18 @@
+Title: Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks
+Authors: Patrick Lewis, Ethan Perez, Aleksandara Piktus, Fabio Petroni, Vladimir Karpukhin, Naman Goyal, Heinrich Kuttler, Mike Lewis, Wen-tau Yih, Tim Rocktaschel, Sebastian Riedel, Douwe Kiela
+
+1. Core Concept and Motivation
+Pre-trained neural language models store factual knowledge in their model parameters (parametric memory). However, parametric memory has key limitations: it cannot easily expand or update its knowledge base without costly retraining, and it often hallucinates facts. Retrieval-Augmented Generation (RAG) overcomes this by combining parametric memory (a pre-trained seq2seq generator) with non-parametric memory (a dense vector index of text documents).
+
+2. Architecture and Mechanics
+RAG models consist of:
+- Retriever: Dense Passage Retrieval (DPR) using bi-encoder architectures to retrieve top-k relevant document passages given an input query. DPR indexes text chunks using a dense vector embedding model.
+- Generator: A pre-trained sequence-to-sequence model (such as BART) conditioned on the original input concatenated with retrieved passages.
+Two formulations exist:
+- RAG-Sequence: The model retrieves document chunks once and uses the same document to generate the entire target sequence.
+- RAG-Token: The model can draw upon different retrieved documents for each generated token in the output sequence.
+
+3. Key Advantages of RAG
+- Updatability: The knowledge base can be updated, replaced, or expanded at runtime simply by modifying the vector index, without retraining model weights.
+- Reduced Hallucinations: Grounding answers in retrieved document contexts significantly reduces factual hallucinations.
+- Verifiability: The system outputs citations and retrieved document sources, enabling users to verify predictions.

@@ -1,0 +1,38 @@
+{
+  "qwen-0.5b": {
+    "mean_accuracy": 0.823,
+    "mean_relevance": 0.835,
+    "mean_hit_rate": 1.0,
+    "mean_retrieval_precision": 0.54,
+    "mean_hallucination_rate": 0.076,
+    "mean_code_pass_rate": 1.0,
+    "mean_generation_time_s": 1.712,
+    "mean_total_latency_s": 1.77,
+    "mean_tokens_per_sec": 31.82,
+    "mean_ram_mb": 1098.9
+  },
+  "smollm-360m": {
+    "mean_accuracy": 0.602,
+    "mean_relevance": 0.832,
+    "mean_hit_rate": 1.0,
+    "mean_retrieval_precision": 0.54,
+    "mean_hallucination_rate": 0.204,
+    "mean_code_pass_rate": 0.917,
+    "mean_generation_time_s": 1.208,
+    "mean_total_latency_s": 1.266,
+    "mean_tokens_per_sec": 42.68,
+    "mean_ram_mb": 749.2
+  },
+  "tinyllama": {
+    "mean_accuracy": 0.689,
+    "mean_relevance": 0.85,
+    "mean_hit_rate": 1.0,
+    "mean_retrieval_precision": 0.54,
+    "mean_hallucination_rate": 0.155,
+    "mean_code_pass_rate": 1.0,
+    "mean_generation_time_s": 3.377,
+    "mean_total_latency_s": 3.435,
+    "mean_tokens_per_sec": 21.21,
+    "mean_ram_mb": 2215.5
+  }
+}

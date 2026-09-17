@@ -17,7 +17,10 @@ COPY requirements.txt .
 RUN pip install --upgrade pip \
     && pip install -r requirements.txt
  
-COPY app.py rag_logic.py ./
+COPY app.py rag_logic.py dashboard.py evaluate_models.py ./
+COPY evaluation_dataset.json week4_evaluation_results.csv week4_model_summary.json week4_rag_traces.json week4_rag_vs_llm.json ./
+COPY knowledge_base ./knowledge_base
+
 
 RUN mkdir -p /home/app/.cache/huggingface /home/app/.streamlit \
     && chown -R app:app /app /home/app

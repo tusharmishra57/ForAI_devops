@@ -1,0 +1,31 @@
+Title: System Architecture and Component Documentation - Research Paper Assistant
+Repository: ForAI_devops (rag_logic.py and app.py)
+
+1. Architecture Overview
+The application is an end-to-end Retrieval-Augmented Generation (RAG) assistant designed for research paper analysis and code repository question-answering. It integrates document parsing, text chunking, dense vector indexing, reciprocal rank fusion (RRF), memory-constrained LLM generation, and an interactive Streamlit UI.
+
+2. Component Specifications
+- DocumentProcessor (rag_logic.py):
+  Loads research documents (.pdf using PyPDFLoader, .txt using TextLoader) from a source directory. Cleans whitespace and non-ASCII artifacts using regex. Adds metadata tags 'source' and 'type' to each Document object.
+- TextChunker (rag_logic.py):
+  Splits documents into overlapping chunks using RecursiveCharacterTextSplitter. Supports three configurations:
+  * small: chunk_size=200, chunk_overlap=40
+  * medium: chunk_size=500, chunk_overlap=100
+  * large: chunk_size=1000, chunk_overlap=200
+  Each chunk is tagged with 'chunk_id' and 'chunk_config'.
+- EmbeddingManager (rag_logic.py):
+  Manages sentence-transformer embedding models ('minilm', 'mpnet', 'bge'). Embeds document chunks and incoming user queries. Integrates with ModelCoordinator for lazy model loading and single-model memory residence.
+- ChromaVectorStore & FAISSVectorStore (rag_logic.py):
+  ChromaVectorStore builds a cosine distance HNSW collection using chromadb.Client().
+  FAISSVectorStore builds an in-memory faiss.IndexFlatIP index using normalized embeddings for inner product (cosine) similarity.
+- SemanticSearcher (rag_logic.py):
+  Executes semantic search against Chroma or FAISS. Implements Reciprocal Rank Fusion (RRF) to combine results from both stores:
+  RRF_Score(d) = sum(1 / (k + rank_i(d))) with k = 60.
+- ModelCoordinator (rag_logic.py):
+  Coordinates memory lifecycle across embedding models and LLMs. When any model requests to load, ModelCoordinator calls _unload_current() on all other registered managers, triggers garbage collection (gc.collect()), and clears PyTorch CUDA cache (torch.cuda.empty_cache()). Ensures only ONE model occupies system RAM/VRAM at any instant, preventing Out-Of-Memory (OOM) crashes on 5GB RAM VMs.
+- LLMManager (rag_logic.py):
+  Loads generative models: 'qwen-0.5b', 'smollm-360m', 'tinyllama', 'qwen-1.5b'. When CUDA is available, applies 4-bit BitsAndBytes quantization (nf4, double quant). On CPU environments, safely loads in float32 using low_cpu_mem_usage=True to avoid bitsandbytes CUDA exceptions.
+- RAGPipeline (rag_logic.py):
+  Orchestrates retrieval via SemanticSearcher, formats context with source attribution ([Source: filename]), constructs strict prompt template, and generates response via LLMManager. Measures retrieval time and generation time.
+- app.py:
+  Provides the Streamlit interface: sidebar configuration for embedding models, LLM models, vector store selection, top_k slider, document uploader, processing trigger, answer display, and metadata inspection.

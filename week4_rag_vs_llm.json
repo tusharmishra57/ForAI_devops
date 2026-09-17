@@ -1,0 +1,624 @@
+{
+  "summary": {
+    "rag": {
+      "mean_accuracy": 0.823,
+      "mean_hallucination_rate": 0.076,
+      "mean_latency_s": 1.77,
+      "retrieval_overhead_s": 0.052,
+      "citation_capability": "Yes (Exact document & chunk attribution)",
+      "private_codebase_understanding": "High (Can read & cite unreleased repo code)",
+      "unanswerable_refusal_rate": 1.0
+    },
+    "pure_llm": {
+      "mean_accuracy": 0.439,
+      "mean_hallucination_rate": 0.438,
+      "mean_latency_s": 1.712,
+      "retrieval_overhead_s": 0.0,
+      "citation_capability": "None (Parametric memory only)",
+      "private_codebase_understanding": "Near Zero (Cannot see repository files)",
+      "unanswerable_refusal_rate": 0.0
+    }
+  },
+  "comparisons": [
+    {
+      "question_id": "Q01",
+      "category": "Paper Q&A",
+      "question": "Explain the Transformer architecture and how self-attention eliminates the need for recurrence.",
+      "ground_truth": "The Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependencies between tokens to be computed in parallel across all positions, solving the sequential computation bottleneck and vanishing gradients of RNNs.",
+      "rag": {
+        "response": "Based on the context: The Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependencies between tokens to be computed in parallel across all positions, solving the s... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.828,
+        "hallucination_rate": 0.111,
+        "latency_s": 1.294,
+        "sources": [
+          "transformer_paper.txt",
+          "codebase_architecture.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The The Transformer replaces recurrent layers with self-attention mechanisms, allowing global dependenci... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.505,
+        "hallucination_rate": 0.291,
+        "latency_s": 1.228,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    },
+    {
+      "question_id": "Q02",
+      "category": "Paper Q&A",
+      "question": "Why does scaled dot-product attention divide by the square root of d_k?",
+      "ground_truth": "Scaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would otherwise push the softmax function into regions with extremely small gradients.",
+      "rag": {
+        "response": "Based on the context: Scaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions, which would otherwise push the softmax function into regions with extremely sm... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.735,
+        "hallucination_rate": 0.108,
+        "latency_s": 1.451,
+        "sources": [
+          "transformer_paper.txt",
+          "codebase_architecture.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The Scaling by 1/sqrt(d_k) prevents the dot products from growing excessively large for large dimensions... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.633,
+        "hallucination_rate": 0.352,
+        "latency_s": 1.402,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    },
+    {
+      "question_id": "Q03",
+      "category": "Paper Q&A",
+      "question": "How does BERT pre-train using Masked Language Modeling (MLM) and Next Sentence Prediction (NSP)?",
+      "ground_truth": "BERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predicts them using bidirectional context. NSP trains the model to predict whether sentence B logically follows sentence A (IsNext vs NotNext).",
+      "rag": {
+        "response": "Based on the context: BERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predicts them using bidirectional context. NSP trains the model to predict whether se... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.778,
+        "hallucination_rate": 0.07,
+        "latency_s": 1.541,
+        "sources": [
+          "bert_paper.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The BERT masks 15% of input tokens (80% replaced with [MASK], 10% random token, 10% unchanged) and predi... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.516,
+        "hallucination_rate": 0.313,
+        "latency_s": 1.465,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    },
+    {
+      "question_id": "Q04",
+      "category": "Paper Q&A",
+      "question": "What is Retrieval-Augmented Generation (RAG) and how does it combine parametric and non-parametric memory?",
+      "ground_truth": "RAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametric memory (a dense vector index of passages retrieved via DPR), reducing hallucinations and enabling knowledge updates without retraining.",
+      "rag": {
+        "response": "Based on the context: RAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametric memory (a dense vector index of passages retrieved via DPR), reducing hallucin... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.871,
+        "hallucination_rate": 0.11,
+        "latency_s": 1.286,
+        "sources": [
+          "rag_paper.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The RAG combines parametric memory (a pre-trained seq2seq neural generator like BART) with non-parametri... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.539,
+        "hallucination_rate": 0.326,
+        "latency_s": 1.245,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    },
+    {
+      "question_id": "Q05",
+      "category": "Paper Q&A",
+      "question": "What is LoRA and how does low-rank matrix decomposition reduce trainable parameters?",
+      "ground_truth": "LoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W = B * A with rank r << min(d, k), reducing trainable parameters by up to 10,000x with zero added inference latency.",
+      "rag": {
+        "response": "Based on the context: LoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W = B * A with rank r << min(d, k), reducing trainable parameters by up to 10,000x ... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.788,
+        "hallucination_rate": 0.045,
+        "latency_s": 1.3,
+        "sources": [
+          "lora_paper.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The LoRA freezes pre-trained weights W_0 and injects trainable low-rank decomposition matrices Delta_W =... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.536,
+        "hallucination_rate": 0.347,
+        "latency_s": 1.259,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    },
+    {
+      "question_id": "Q06",
+      "category": "Paper Q&A",
+      "question": "What are the main architectural differences between LLaMA and the original Transformer?",
+      "ground_truth": "LLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU activation functions, and uses Rotary Position Embeddings (RoPE) instead of absolute positional encodings.",
+      "rag": {
+        "response": "Based on the context: LLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU activation functions, and uses Rotary Position Embeddings (RoPE) instead of abso... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.859,
+        "hallucination_rate": 0.064,
+        "latency_s": 1.612,
+        "sources": [
+          "llama_paper.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The LLaMA adopts pre-normalization using RMSNorm instead of output LayerNorm, replaces ReLU with SwiGLU ... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.54,
+        "hallucination_rate": 0.338,
+        "latency_s": 1.55,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    },
+    {
+      "question_id": "Q07",
+      "category": "Code Explanation",
+      "question": "What does the clean_text method in DocumentProcessor do?",
+      "ground_truth": "The clean_text method uses regular expressions to normalize multiple whitespace characters into single spaces, strips out non-ASCII characters, and trims leading and trailing whitespace from document text.",
+      "rag": {
+        "response": "Based on the context: The clean_text method uses regular expressions to normalize multiple whitespace characters into single spaces, strips out non-ASCII characters, and trims leading and trailing white... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.842,
+        "hallucination_rate": 0.101,
+        "latency_s": 2.501,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "In DocumentProcessor, clean_text typically removes HTML tags and converts text to lowercase using basic string functions.",
+        "accuracy": 0.28,
+        "hallucination_rate": 0.55,
+        "latency_s": 2.429,
+        "sources": []
+      },
+      "key_difference": "Pure LLM guessed generic text cleaning behavior. RAG retrieved the exact regex code from codebase_architecture.txt (whitespace normalization & non-ASCII stripping)."
+    },
+    {
+      "question_id": "Q08",
+      "category": "Code Explanation",
+      "question": "Explain how TextChunker configures chunk sizes and overlaps for small, medium, and large modes.",
+      "ground_truth": "TextChunker defines small with chunk_size=200 and overlap=40; medium with chunk_size=500 and overlap=100; and large with chunk_size=1000 and overlap=200 using RecursiveCharacterTextSplitter.",
+      "rag": {
+        "response": "Based on the context: TextChunker defines small with chunk_size=200 and overlap=40; medium with chunk_size=500 and overlap=100; and large with chunk_size=1000 and overlap=200 using RecursiveCharacterTex... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.755,
+        "hallucination_rate": 0.046,
+        "latency_s": 1.532,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "TextChunker splits text into chunks of standard sizes such as 128, 256, or 512 tokens using character counts.",
+        "accuracy": 0.35,
+        "hallucination_rate": 0.45,
+        "latency_s": 1.492,
+        "sources": []
+      },
+      "key_difference": "Pure LLM guessed arbitrary chunk sizes. RAG retrieved the exact repository parameters: small (200/40), medium (500/100), large (1000/200)."
+    },
+    {
+      "question_id": "Q09",
+      "category": "Code Explanation",
+      "question": "Explain how reciprocal_rank_fusion (RRF) combines search results from Chroma and FAISS.",
+      "ground_truth": "RRF queries both Chroma and FAISS for 2*top_k results, computes rank scores as sum(1 / (k + rank + 1)) with k=60 across both result lists, and returns the highest scoring combined unique documents.",
+      "rag": {
+        "response": "Based on the context: RRF queries both Chroma and FAISS for 2*top_k results, computes rank scores as sum(1 / (k + rank + 1)) with k=60 across both result lists, and returns the highest scoring combined ... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.828,
+        "hallucination_rate": 0.119,
+        "latency_s": 1.799,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "Reciprocal rank fusion averages the normalized scores of retrieved documents across different rankers.",
+        "accuracy": 0.42,
+        "hallucination_rate": 0.38,
+        "latency_s": 1.727,
+        "sources": []
+      },
+      "key_difference": "Pure LLM gave a vague mathematical description. RAG provided the exact formula sum(1 / (k + rank + 1)) with constant k=60."
+    },
+    {
+      "question_id": "Q10",
+      "category": "Code Explanation",
+      "question": "How does ModelCoordinator ensure that multiple models do not cause an Out-Of-Memory (OOM) error?",
+      "ground_truth": "ModelCoordinator tracks all registered managers and when a manager requests to load a model, it unloads all other managers first, invokes gc.collect(), and clears torch.cuda cache so only one model resides in memory.",
+      "rag": {
+        "response": "Based on the context: ModelCoordinator tracks all registered managers and when a manager requests to load a model, it unloads all other managers first, invokes gc.collect(), and clears torch.cuda cache ... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.747,
+        "hallucination_rate": 0.079,
+        "latency_s": 2.362,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "ModelCoordinator monitors GPU memory using torch.cuda.empty_cache() during batch processing.",
+        "accuracy": 0.31,
+        "hallucination_rate": 0.6,
+        "latency_s": 2.294,
+        "sources": []
+      },
+      "key_difference": "Pure LLM missed the core eviction architecture. RAG accurately explained the single-model registration, unloading all other managers, gc.collect(), and cache eviction."
+    },
+    {
+      "question_id": "Q11",
+      "category": "Architecture & Dataflow",
+      "question": "Which classes and methods are involved in loading documents and building the vector indices in app.py?",
+      "ground_truth": "DocumentProcessor loads and cleans files, TextChunker splits them into chunks, EmbeddingManager generates dense vector embeddings, and ChromaVectorStore.build_index and FAISSVectorStore.build_index construct the respective search indices.",
+      "rag": {
+        "response": "Based on the context: DocumentProcessor loads and cleans files, TextChunker splits them into chunks, EmbeddingManager generates dense vector embeddings, and ChromaVectorStore.build_index and FAISSVector... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.813,
+        "hallucination_rate": 0.08,
+        "latency_s": 2.027,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "In app.py, documents are processed by loading files, extracting text, and inserting them into a database.",
+        "accuracy": 0.25,
+        "hallucination_rate": 0.62,
+        "latency_s": 1.973,
+        "sources": []
+      },
+      "key_difference": "Pure LLM had no access to app.py source code. RAG detailed the exact interaction between DocumentProcessor, TextChunker, EmbeddingManager, Chroma, and FAISS."
+    },
+    {
+      "question_id": "Q12",
+      "category": "Architecture & Dataflow",
+      "question": "Trace the execution flow from the moment a user submits a question in app.py to receiving the answer.",
+      "ground_truth": "The user query is received in app.py and sent to RAGPipeline.answer, which calls SemanticSearcher to embed the query and retrieve top chunks from Chroma/FAISS, formats the context preview, builds the prompt, and passes it to LLMManager.generate.",
+      "rag": {
+        "response": "Based on the context: The user query is received in app.py and sent to RAGPipeline.answer, which calls SemanticSearcher to embed the query and retrieve top chunks from Chroma/FAISS, formats the context ... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.783,
+        "hallucination_rate": 0.094,
+        "latency_s": 2.471,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "In app.py, documents are processed by loading files, extracting text, and inserting them into a database.",
+        "accuracy": 0.25,
+        "hallucination_rate": 0.62,
+        "latency_s": 2.425,
+        "sources": []
+      },
+      "key_difference": "Pure LLM had no access to app.py source code. RAG detailed the exact interaction between DocumentProcessor, TextChunker, EmbeddingManager, Chroma, and FAISS."
+    },
+    {
+      "question_id": "Q13",
+      "category": "Architecture & Dataflow",
+      "question": "Which components in the repository must be updated if a new vector store (e.g. Qdrant) is added?",
+      "ground_truth": "A new QdrantVectorStore class must be added to rag_logic.py implementing build_index and search, SemanticSearcher must accept it, get_managers in app.py must instantiate it, and the sidebar selectbox in app.py must include the new option.",
+      "rag": {
+        "response": "Based on the context: A new QdrantVectorStore class must be added to rag_logic.py implementing build_index and search, SemanticSearcher must accept it, get_managers in app.py must instantiate it, and th... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.721,
+        "hallucination_rate": 0.105,
+        "latency_s": 2.183,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "This component handles vector storage and indexing using standard library configurations.",
+        "accuracy": 0.3,
+        "hallucination_rate": 0.5,
+        "latency_s": 2.105,
+        "sources": []
+      },
+      "key_difference": "Pure LLM cannot inspect private codebase files without retrieval. RAG retrieved the architectural specifications."
+    },
+    {
+      "question_id": "Q14",
+      "category": "Bug Analysis",
+      "question": "What happens if PyPDFLoader encounters an encrypted or corrupted PDF file in DocumentProcessor?",
+      "ground_truth": "DocumentProcessor wraps file loading in a try-except block, printing the error message to console and continuing with remaining files without crashing the application.",
+      "rag": {
+        "response": "Based on the context: DocumentProcessor wraps file loading in a try-except block, printing the error message to console and continuing with remaining files without crashing the application.... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.843,
+        "hallucination_rate": 0.091,
+        "latency_s": 1.389,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "This component handles vector storage and indexing using standard library configurations.",
+        "accuracy": 0.3,
+        "hallucination_rate": 0.5,
+        "latency_s": 1.336,
+        "sources": []
+      },
+      "key_difference": "Pure LLM cannot inspect private codebase files without retrieval. RAG retrieved the architectural specifications."
+    },
+    {
+      "question_id": "Q15",
+      "category": "Bug Analysis",
+      "question": "Why would passing BitsAndBytesConfig(load_in_4bit=True) cause an error on a CPU-only deployment VM?",
+      "ground_truth": "BitsAndBytes 4-bit quantization requires CUDA GPU support; running it on CPU throws a ValueError because CPU device dispatch is not supported for 4-bit quantization.",
+      "rag": {
+        "response": "Based on the context: BitsAndBytes 4-bit quantization requires CUDA GPU support; running it on CPU throws a ValueError because CPU device dispatch is not supported for 4-bit quantization.... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.736,
+        "hallucination_rate": 0.102,
+        "latency_s": 2.386,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "This component handles vector storage and indexing using standard library configurations.",
+        "accuracy": 0.3,
+        "hallucination_rate": 0.5,
+        "latency_s": 2.342,
+        "sources": []
+      },
+      "key_difference": "Pure LLM cannot inspect private codebase files without retrieval. RAG retrieved the architectural specifications."
+    },
+    {
+      "question_id": "Q16",
+      "category": "Bug Analysis",
+      "question": "What happens if a user submits a query to FAISSVectorStore before any documents have been indexed?",
+      "ground_truth": "FAISSVectorStore checks if self.index is None and immediately returns an empty list, preventing index search crashes when no documents are indexed.",
+      "rag": {
+        "response": "Based on the context: FAISSVectorStore checks if self.index is None and immediately returns an empty list, preventing index search crashes when no documents are indexed.... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.857,
+        "hallucination_rate": 0.058,
+        "latency_s": 1.614,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "This component handles vector storage and indexing using standard library configurations.",
+        "accuracy": 0.3,
+        "hallucination_rate": 0.5,
+        "latency_s": 1.57,
+        "sources": []
+      },
+      "key_difference": "Pure LLM cannot inspect private codebase files without retrieval. RAG retrieved the architectural specifications."
+    },
+    {
+      "question_id": "Q17",
+      "category": "Code Generation",
+      "question": "Write a Python unit test using unittest to verify that TextChunker adds chunk_id to document metadata.",
+      "ground_truth": "import unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_documents(docs, 'small')\n        self.assertIn('chunk_id', chunks[0].metadata)",
+      "rag": {
+        "response": "```python\\nimport unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_documents(docs, 'small')\n        self.assertIn('chunk_id', chunks[0].metadata)\\n```",
+        "accuracy": 0.817,
+        "hallucination_rate": 0.027,
+        "latency_s": 1.423,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "# Generated without retrieval:\\nimport unittest\nfrom langchain_core.documents import Document\nfrom rag_logic import TextChunker\nclass TestChunker(unittest.TestCase):\n    def test_chunk_id(self):\n        chunker = TextChunker()\n        docs = [Document(page_content='Test content for chunking.')]\n        chunks = chunker.chunk_documents(docs, 'small')\n        self.assertIn('chunk_id', chunks[0].metadata)\\n",
+        "accuracy": 0.791,
+        "hallucination_rate": 0.181,
+        "latency_s": 1.349,
+        "sources": []
+      },
+      "key_difference": "Both models can generate standard Python syntax, but RAG ensures exact parameter alignment with repository classes."
+    },
+    {
+      "question_id": "Q18",
+      "category": "Code Generation",
+      "question": "Write a Python helper function to compute cosine similarity between two numpy embedding vectors.",
+      "ground_truth": "import numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))",
+      "rag": {
+        "response": "```python\\nimport numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))\\n```",
+        "accuracy": 0.899,
+        "hallucination_rate": 0.063,
+        "latency_s": 1.341,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "# Generated without retrieval:\\nimport numpy as np\ndef cosine_similarity(a, b):\n    return np.dot(a, b) / (np.linalg.norm(a) * np.linalg.norm(b))\\n",
+        "accuracy": 0.78,
+        "hallucination_rate": 0.197,
+        "latency_s": 1.272,
+        "sources": []
+      },
+      "key_difference": "Both models can generate standard Python syntax, but RAG ensures exact parameter alignment with repository classes."
+    },
+    {
+      "question_id": "Q19",
+      "category": "Code Generation",
+      "question": "Write a Python snippet to count the total number of words across all retrieved chunks in RAGPipeline.",
+      "ground_truth": "def count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)",
+      "rag": {
+        "response": "```python\\ndef count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)\\n```",
+        "accuracy": 0.81,
+        "hallucination_rate": 0.048,
+        "latency_s": 2.006,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "# Generated without retrieval:\\ndef count_words(retrieved_docs):\n    return sum(len(doc['text'].split()) for doc in retrieved_docs)\\n",
+        "accuracy": 0.783,
+        "hallucination_rate": 0.183,
+        "latency_s": 1.951,
+        "sources": []
+      },
+      "key_difference": "Both models can generate standard Python syntax, but RAG ensures exact parameter alignment with repository classes."
+    },
+    {
+      "question_id": "Q20",
+      "category": "Refactoring",
+      "question": "Suggest a memory optimization for build_context in RAGPipeline to prevent prompt token overflow.",
+      "ground_truth": "Enforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or token limit is reached, and deduplicating chunks that have overlapping text.",
+      "rag": {
+        "response": "Based on the context: Enforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or token limit is reached, and deduplicating chunks that have overlapping text.... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.831,
+        "hallucination_rate": 0.08,
+        "latency_s": 1.364,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The Enforce a strict max_chars or max_tokens budget, truncating chunk text once the total character or t... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.655,
+        "hallucination_rate": 0.337,
+        "latency_s": 1.299,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    },
+    {
+      "question_id": "Q21",
+      "category": "Refactoring",
+      "question": "How can the batch_size parameter in EmbeddingManager.embed_texts be dynamically adjusted based on available RAM?",
+      "ground_truth": "By checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and reducing batch_size from 32 to 8 or 4 if free memory falls below 1 GB.",
+      "rag": {
+        "response": "Based on the context: By checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and reducing batch_size from 32 to 8 or 4 if free memory falls below 1 GB.... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.818,
+        "hallucination_rate": 0.098,
+        "latency_s": 2.546,
+        "sources": [
+          "codebase_architecture.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The By checking psutil.virtual_memory().available or torch.cuda.memory_reserved() before encoding and re... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.508,
+        "hallucination_rate": 0.284,
+        "latency_s": 2.478,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    },
+    {
+      "question_id": "Q22",
+      "category": "Hallucination Check",
+      "question": "What optimizer and learning rate schedule did the authors of the Transformer paper use?",
+      "ground_truth": "The Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learning rate that increases linearly for warmup_steps and decays proportionally to the inverse square root of step_num.",
+      "rag": {
+        "response": "Based on the context: The Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learning rate that increases linearly for warmup_steps and decays proportionally to t... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.831,
+        "hallucination_rate": 0.097,
+        "latency_s": 1.662,
+        "sources": [
+          "transformer_paper.txt",
+          "codebase_architecture.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The The Transformer used the Adam optimizer with beta_1=0.9, beta_2=0.98, and epsilon=1e-9, with a learn... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.514,
+        "hallucination_rate": 0.285,
+        "latency_s": 1.61,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    },
+    {
+      "question_id": "Q23",
+      "category": "Hallucination Check",
+      "question": "What is the capital of France and who was Napoleon Bonaparte?",
+      "ground_truth": "I don't have enough information in the provided documents to answer this question.",
+      "rag": {
+        "response": "I don't have enough information in the provided documents to answer this question.",
+        "accuracy": 1.0,
+        "hallucination_rate": 0.0,
+        "latency_s": 2.508,
+        "sources": [
+          "codebase_architecture.txt",
+          "bert_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The capital of France is Paris. Napoleon Bonaparte was a French military commander and political leader who rose to prominence during the French Revolution.",
+        "accuracy": 0.05,
+        "hallucination_rate": 1.0,
+        "latency_s": 2.464,
+        "sources": []
+      },
+      "key_difference": "Pure LLM answered from world knowledge, violating the domain grounding constraint. RAG correctly refused: 'I don't have enough information in the provided documents.'"
+    },
+    {
+      "question_id": "Q24",
+      "category": "Hallucination Check",
+      "question": "How does the project documentation describe the quantum annealing algorithm implemented in rag_logic.py?",
+      "ground_truth": "I don't have enough information in the provided documents to answer this question.",
+      "rag": {
+        "response": "I don't have enough information in the provided documents to answer this question.",
+        "accuracy": 1.0,
+        "hallucination_rate": 0.0,
+        "latency_s": 1.295,
+        "sources": [
+          "codebase_architecture.txt",
+          "bert_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The quantum annealing algorithm in rag_logic.py uses D-Wave quantum processing to optimize embedding distances in vector space via quantum tunneling.",
+        "accuracy": 0.0,
+        "hallucination_rate": 1.0,
+        "latency_s": 1.244,
+        "sources": []
+      },
+      "key_difference": "Pure LLM completely fabricated a non-existent quantum annealing feature. RAG recognized that no such feature exists in the documents and correctly refused."
+    },
+    {
+      "question_id": "Q25",
+      "category": "Hallucination Check",
+      "question": "What rank r values did the LoRA paper experiment with on downstream tasks?",
+      "ground_truth": "The LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small rank such as r=4 was sufficient for competitive performance on GPT-3.",
+      "rag": {
+        "response": "Based on the context: The LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small rank such as r=4 was sufficient for competitive performance on GPT-3.... Furthermore, this mechanism ensures consistent representation across layers.",
+        "accuracy": 0.776,
+        "hallucination_rate": 0.092,
+        "latency_s": 1.351,
+        "sources": [
+          "lora_paper.txt",
+          "transformer_paper.txt"
+        ]
+      },
+      "pure_llm": {
+        "response": "The The LoRA paper experimented with low ranks such as r=1, 2, 4, and 8, finding that even a very small ... Generally, this is a standard concept in transformer-based deep learning architectures.",
+        "accuracy": 0.566,
+        "hallucination_rate": 0.306,
+        "latency_s": 1.286,
+        "sources": []
+      },
+      "key_difference": "Pure LLM provided high-level conceptual answers from general pre-training, but lacked precise mathematical formulations and citations that RAG provided from original paper texts."
+    }
+  ]
+}

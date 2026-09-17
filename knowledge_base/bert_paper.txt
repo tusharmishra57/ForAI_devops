@@ -1,0 +1,16 @@
+Title: BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding
+Authors: Jacob Devlin, Ming-Wei Chang, Kenton Lee, Kristina Toutanova
+
+1. Motivation and Overview
+Prior language models like OpenAI GPT were unidirectional (left-to-right), and ELMo used shallow concatenation of independently trained left-to-right and right-to-left LSTMs. BERT (Bidirectional Encoder Representations from Transformers) is designed to pre-train deep bidirectional representations from unlabeled text by jointly conditioning on both left and right context across all layers.
+
+2. Pre-training Objectives
+BERT is pre-trained using two unsupervised tasks:
+- Masked Language Model (MLM): 15% of input tokens are randomly masked. The model learns to predict the masked token based on bidirectional context. Specifically, of the 15% chosen tokens: 80% are replaced with [MASK], 10% are replaced with a random token, and 10% are kept unchanged to prevent bias toward the mask token.
+- Next Sentence Prediction (NSP): The model is trained on pairs of sentences (A and B) to understand sentence relationships. 50% of the time, B is the actual next sentence that follows A (IsNext), and 50% of the time, B is a random sentence from the corpus (NotNext).
+
+3. Architecture and Fine-Tuning
+BERT uses a multi-layer bidirectional Transformer encoder. Two primary model sizes:
+- BERT_BASE: L=12 layers, H=768 hidden dimensions, A=12 attention heads, Total Parameters = 110M.
+- BERT_LARGE: L=24 layers, H=1024 hidden dimensions, A=16 attention heads, Total Parameters = 340M.
+Fine-tuning is straightforward: by adding a single task-specific output layer, BERT achieves state-of-the-art results across classification, question answering (SQuAD), and inference benchmarks without substantial architectural changes.

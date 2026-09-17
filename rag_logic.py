@@ -403,3 +403,21 @@ class RAGPipeline:
             "retrieved_sources": list(set([r.get("metadata", {}).get("source", "?") for r in retrieved])),
             "context_preview": context[:500],
         }
+
+    def answer_without_rag(self, question: str, llm_name: str = "qwen-0.5b") -> Dict:
+        """Generates an answer directly from the LLM without retrieval (pure parametric memory)."""
+        prompt = f"You are a helpful assistant. Answer the following question accurately:\\n\\nQuestion: {question}\\n\\nAnswer:"
+        t0 = time.time()
+        answer_text = self.llm_manager.generate(llm_name, prompt)
+        generation_time = time.time() - t0
+        return {
+            "question": question,
+            "answer": answer_text,
+            "llm": llm_name,
+            "mode": "pure_llm",
+            "retrieval_time_s": 0.0,
+            "generation_time_s": round(generation_time, 3),
+            "retrieved_sources": [],
+            "context_preview": "None (Direct LLM inference without retrieval)",
+        }
+
