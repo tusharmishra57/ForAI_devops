@@ -1,12 +1,17 @@
 import streamlit as st
 import os
 import tempfile
-import torch
-from rag_logic import (
-    DocumentProcessor, TextChunker, EmbeddingManager, 
-    ChromaVectorStore, FAISSVectorStore, SemanticSearcher, 
-    LLMManager, RAGPipeline, ModelCoordinator, DEVICE
-)
+try:
+    import torch
+    from rag_logic import (
+        DocumentProcessor, TextChunker, EmbeddingManager, 
+        ChromaVectorStore, FAISSVectorStore, SemanticSearcher, 
+        LLMManager, RAGPipeline, ModelCoordinator, DEVICE
+    )
+    HAS_RAG_CORE = True
+except Exception:
+    HAS_RAG_CORE = False
+    DEVICE = "cpu"
 
 st.set_page_config(page_title="Research Paper Assistant", layout="wide")
 
@@ -14,23 +19,34 @@ st.title("📚 Research Paper Assistant (RAG)")
 st.markdown("Upload research papers and ask questions about them.")
 
 # Cache managers — a single ModelCoordinator ensures only 1 model in memory at a time
-@st.cache_resource
-def get_managers():
-    coordinator = ModelCoordinator()
-    emb_manager = EmbeddingManager(coordinator=coordinator)
-    llm_manager = LLMManager(coordinator=coordinator)
-    chroma_store = ChromaVectorStore()
-    faiss_store = FAISSVectorStore()
-    return emb_manager, llm_manager, chroma_store, faiss_store
+if HAS_RAG_CORE:
+    @st.cache_resource
+    def get_managers():
+        coordinator = ModelCoordinator()
+        emb_manager = EmbeddingManager(coordinator=coordinator)
+        llm_manager = LLMManager(coordinator=coordinator)
+        chroma_store = ChromaVectorStore()
+        faiss_store = FAISSVectorStore()
+        return emb_manager, llm_manager, chroma_store, faiss_store
 
-emb_manager, llm_manager, chroma_store, faiss_store = get_managers()
+    emb_manager, llm_manager, chroma_store, faiss_store = get_managers()
+    emb_keys = list(EmbeddingManager.MODELS.keys())
+    llm_keys = list(LLMManager.MODELS.keys())
+else:
+    emb_manager = None
+    llm_manager = None
+    chroma_store = None
+    faiss_store = None
+    emb_keys = ["minilm", "mpnet", "bge"]
+    llm_keys = ["qwen-0.5b", "smollm-360m", "tinyllama"]
 
 # Sidebar for configuration
 st.sidebar.header("Configuration")
-emb_model_name = st.sidebar.selectbox("Embedding Model", list(EmbeddingManager.MODELS.keys()))
-llm_model_name = st.sidebar.selectbox("LLM Model", list(LLMManager.MODELS.keys()))
+emb_model_name = st.sidebar.selectbox("Embedding Model", emb_keys)
+llm_model_name = st.sidebar.selectbox("LLM Model", llm_keys)
 vector_store_name = st.sidebar.selectbox("Vector Store", ["chroma", "faiss", "rrf_fusion"])
 top_k = st.sidebar.slider("Top K", 1, 10, 5)
+
 
 # Navigation Tabs
 tab_assistant, tab_rag_vs_llm, tab_eval, tab_rag_diag, tab_repo = st.tabs([
@@ -44,12 +60,16 @@ tab_assistant, tab_rag_vs_llm, tab_eval, tab_rag_diag, tab_repo = st.tabs([
 with tab_assistant:
     st.header("Interactive Document & Paper Q&A")
 
-    # File upload
-    uploaded_files = st.file_uploader("Upload PDF or TXT files", type=["pdf", "txt"], accept_multiple_files=True)
+    if not HAS_RAG_CORE:
+        st.info("ℹ️ Live document processing requires full PyTorch dependencies. All pre-computed Week 4 evaluations, RAG vs. LLM comparisons, metrics, and diagnostics are available in the tabs above.")
+    else:
+        # File upload
+        uploaded_files = st.file_uploader("Upload PDF or TXT files", type=["pdf", "txt"], accept_multiple_files=True)
 
-    if uploaded_files:
-        if st.button("Process Documents"):
-            with st.spinner("Processing documents..."):
+        if uploaded_files:
+            if st.button("Process Documents"):
+                with st.spinner("Processing documents..."):
+
                 with tempfile.TemporaryDirectory() as tmp_dir:
                     for uploaded_file in uploaded_files:
                         with open(os.path.join(tmp_dir, uploaded_file.name), "wb") as f:
@@ -289,6 +309,7 @@ with tab_repo:
 
 st.sidebar.divider()
 st.sidebar.write(f"**Device:** {DEVICE}")
-if torch.cuda.is_available():
+if HAS_RAG_CORE and torch.cuda.is_available():
     st.sidebar.write(f"**GPU:** {torch.cuda.get_device_name(0)}")
+
 

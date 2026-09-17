@@ -15,7 +15,8 @@ RUN useradd --create-home --shell /usr/sbin/nologin app
 
 COPY requirements.txt .
 RUN pip install --upgrade pip \
-    && pip install -r requirements.txt
+    && pip install --no-cache-dir -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
+
  
 COPY app.py rag_logic.py dashboard.py evaluate_models.py ./
 COPY evaluation_dataset.json week4_evaluation_results.csv week4_model_summary.json week4_rag_traces.json week4_rag_vs_llm.json ./
