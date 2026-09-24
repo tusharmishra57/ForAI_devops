@@ -18,8 +18,8 @@ RUN pip install --upgrade pip \
     && pip install --no-cache-dir -r requirements.txt --extra-index-url https://download.pytorch.org/whl/cpu
 
  
-COPY app.py rag_logic.py dashboard.py evaluate_models.py ./
-COPY evaluation_dataset.json week4_evaluation_results.csv week4_model_summary.json week4_rag_traces.json week4_rag_vs_llm.json ./
+COPY app.py rag_logic.py dashboard.py evaluate_models.py guardrails.py test_guardrails.py ./
+COPY evaluation_dataset.json week4_evaluation_results.csv week4_model_summary.json week4_rag_traces.json week4_rag_vs_llm.json week4_guardrail_comparison.json ./
 COPY knowledge_base ./knowledge_base
 
 
