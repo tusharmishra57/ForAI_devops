@@ -43,19 +43,45 @@ _INJECTION = (
     "override instructions",
 )
 
-# Keywords strongly suggesting out-of-scope topics
-_OUT_OF_SCOPE = (
-    "capital of",
-    "who won the",
-    "stock price",
-    "weather",
-    "recipe for",
-    "sports score",
-    "movie review",
-    "celebrity",
-    "cryptocurrency",
-    "horoscope",
+# Keywords that indicate a question is clearly off-topic (fast blocklist)
+_OUT_OF_SCOPE_PHRASES = (
+    "capital of", "who won", "gold price", "silver price", "stock price",
+    "share price", "today price", "current price", "today match", "cricket",
+    "football", "ipl", "world cup", "weather", "recipe", "sports score",
+    "movie review", "celebrity", "cryptocurrency", "bitcoin", "horoscope",
+    "election", "politics", "news today", "box office", "bollywood",
+    "hollywood", "covid", "visa", "passport", "government", "tax",
 )
+
+# Allowlist — question MUST contain at least one of these to pass scope check.
+# This is the primary defence: anything not related to AI/ML/code is rejected.
+_ALLOWED_TOPICS = {
+    # AI / ML concepts
+    "model", "models", "neural", "network", "attention", "transformer",
+    "bert", "gpt", "llm", "llms", "language", "embedding", "embeddings",
+    "vector", "vectors", "retrieval", "rag", "generation", "inference",
+    "training", "fine", "tuning", "lora", "quantization", "tokenizer",
+    "token", "tokens", "classification", "regression", "encoder", "decoder",
+    "layer", "layers", "weight", "weights", "gradient", "loss", "accuracy",
+    "precision", "recall", "rouge", "bleu", "hallucination", "grounding",
+    "context", "prompt", "prompting", "chain", "agent", "agents",
+    "diffusion", "generative", "discriminative", "supervised", "unsupervised",
+    "reinforcement", "reward", "policy", "value", "softmax", "activation",
+    "relu", "normalization", "dropout", "batch", "epoch", "learning",
+    "dataset", "benchmark", "evaluation", "metric", "metrics", "score",
+    "similarity", "cosine", "dot", "product", "matrix", "tensor",
+    "huggingface", "openai", "anthropic", "google", "deepmind", "llama",
+    "qwen", "smollm", "tinyllama", "mistral", "falcon", "vicuna",
+    "sentence", "chunk", "chunking", "index", "indexing", "faiss", "chroma",
+    "chromadb", "semantic", "search", "document", "documents", "paper",
+    "papers", "research", "architecture", "pipeline", "workflow",
+    # Code / codebase
+    "code", "codebase", "function", "class", "method", "module", "file",
+    "python", "docker", "container", "api", "endpoint", "parameter",
+    "argument", "variable", "import", "library", "package", "install",
+    "deploy", "deployment", "server", "streamlit", "app", "application",
+    "rag_logic", "app.py", "coordinator", "manager", "embeddings",
+}
 
 
 # ── Data class ────────────────────────────────────────────────────────────────
@@ -106,16 +132,33 @@ def validate_question(question: str) -> GuardrailDecision:
 
 # ── Guardrail 2 — Scope check ─────────────────────────────────────────────────
 def check_scope(question: str) -> GuardrailDecision:
-    """Reject questions that are clearly outside the AI/ML domain."""
+    """
+    Two-stage scope enforcement:
+      Stage 1 — Fast blocklist: instantly reject known off-topic phrases.
+      Stage 2 — Allowlist:      question must contain at least one AI/ML/code
+                                keyword; anything else is rejected.
+    This ensures questions like 'today gold price' or 'India match score'
+    are blocked even if they are not in the blocklist.
+    """
+    _SCOPE_REFUSAL = (
+        "This assistant only answers questions about AI/ML research papers "
+        "and the uploaded codebase. Please ask about topics like transformers, "
+        "RAG, embeddings, model evaluation, or the project code."
+    )
     lc = question.lower()
-    for phrase in _OUT_OF_SCOPE:
+
+    # Stage 1: blocklist
+    for phrase in _OUT_OF_SCOPE_PHRASES:
         if phrase in lc:
-            return GuardrailDecision(
-                False, "out_of_scope",
-                "This assistant answers questions about AI/ML research papers "
-                "and the uploaded codebase only."
-            )
+            return GuardrailDecision(False, "out_of_scope", _SCOPE_REFUSAL)
+
+    # Stage 2: allowlist — extract words and check overlap with allowed topics
+    words = set(re.findall(r"[a-zA-Z][a-zA-Z0-9_-]{1,}", lc))
+    if not words & _ALLOWED_TOPICS:
+        return GuardrailDecision(False, "out_of_scope", _SCOPE_REFUSAL)
+
     return GuardrailDecision(True)
+
 
 
 # ── Guardrail 3 — Evidence sufficiency ───────────────────────────────────────
